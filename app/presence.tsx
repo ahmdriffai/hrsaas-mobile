@@ -1,8 +1,8 @@
+import BackButton from "@/components/fragment/back-button";
 import { fetchLocationName } from "@/lib/getAddress";
 import Feather from "@expo/vector-icons/Feather";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import * as Location from "expo-location";
-import { useNavigation } from "expo-router";
 import LottieView from "lottie-react-native";
 import { useEffect, useRef, useState } from "react";
 import { Animated, Image, Text, TouchableOpacity, View } from "react-native";
@@ -12,7 +12,6 @@ export default function Presence() {
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef<any>(null);
   const [photo, setPhoto] = useState<any>(null);
-  const navigation = useNavigation();
   const [loadingAddress, setLoadingAddress] = useState(true);
 
   const [address, setAddress] = useState("");
@@ -115,14 +114,7 @@ export default function Presence() {
 
   return (
     <SafeAreaView className="flex-1">
-      <View className="flex-row p-4">
-        <TouchableOpacity
-          className="p-3 bg-white rounded-full border border-gray-200"
-          onPress={() => navigation.goBack()}
-        >
-          <Feather name="arrow-left" size={24} />
-        </TouchableOpacity>
-      </View>
+      <BackButton />
 
       <View className="items-center justify-around  mt-5">
         {/* CAMERA ROUND / ROUNDED FRAME */}

@@ -104,7 +104,7 @@ const menus: Menu[] = [
     icon: "info",
     bgColor: "bg-amber-100",
     iconColor: "orange",
-    route: "/presence",
+    route: "/sanction",
   },
 ];
 
