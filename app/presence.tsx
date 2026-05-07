@@ -1,5 +1,6 @@
-import BackButton from "@/components/fragment/back-button";
-import { fetchLocationName } from "@/lib/getAddress";
+import Button from "@/components/ui/button";
+import { fetchLocationName } from "@/lib/utils/get-address";
+import { checkin } from "@/services/attendance-service";
 import Feather from "@expo/vector-icons/Feather";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import * as Location from "expo-location";
@@ -13,6 +14,11 @@ export default function Presence() {
   const cameraRef = useRef<any>(null);
   const [photo, setPhoto] = useState<any>(null);
   const [loadingAddress, setLoadingAddress] = useState(true);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const [coor, setCoor] = useState<{ lat: number; lng: number } | undefined>(
+    undefined,
+  );
 
   const [address, setAddress] = useState("");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -36,6 +42,12 @@ export default function Presence() {
           accuracy: Location.Accuracy.High,
         });
 
+        setCoor((prev) => ({
+          ...prev,
+          lat: location.coords.latitude,
+          lng: location.coords.longitude,
+        }));
+
         clearTimeout(timeout);
 
         if (!location) {
@@ -47,7 +59,7 @@ export default function Presence() {
         // Reverse geocoding
         const addr = await fetchLocationName(
           location.coords.latitude,
-          location.coords.longitude
+          location.coords.longitude,
         );
 
         setAddress(addr);
@@ -65,17 +77,18 @@ export default function Presence() {
   if (!permission) return <View />;
   if (!permission.granted) {
     return (
-      <SafeAreaView className="flex-1 items-center justify-center">
+      <View className="flex-1 items-center justify-center">
         <Text className="text-center mb-3">We need camera permission</Text>
         <TouchableOpacity
-          className="bg-blue-500 px-4 py-2 rounded-lg"
+          className="bg-primary px-4 py-2 rounded-lg"
           onPress={requestPermission}
         >
           <Text className="text-white font-medium">Grant Permission</Text>
         </TouchableOpacity>
-      </SafeAreaView>
+      </View>
     );
   }
+
   const capturePhoto = async () => {
     if (!cameraRef.current) return;
 
@@ -87,35 +100,37 @@ export default function Presence() {
 
     // SET → baru render 1x
     setPhoto(rawPhoto);
-
-    setTimeout(() => setPhoto(null), 10000);
+    // setTimeout(() => setPhoto(null), 1000);
   };
 
-  const uploadPhoto = async () => {
-    if (!photo) return;
+  const handlePresence = async () => {
+    setLoading(true);
+    await capturePhoto();
 
-    const formData = new FormData();
-    formData.append("file", {
-      uri: photo.uri,
-      name: "photo.jpg",
-      type: "image/jpeg",
-    } as any);
-
-    const res = await fetch("https://your-api.com/upload", {
-      method: "POST",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      body: formData,
+    const response = await checkin({
+      device_info: "tes",
+      face_image_url: "http://localhost:8080",
+      lat: coor?.lat ?? 0,
+      lng: coor?.lng ?? 0,
     });
 
-    console.log(await res.json());
+    if (response.status === 200) {
+      console.log("berhasil attendance", response.data);
+    } else {
+      setErrorMsg(
+        response.data?.error === "Invalid request body"
+          ? "Gagal melakukan presensi"
+          : response.data?.error,
+      );
+    }
+    setTimeout(() => {
+      setLoading(false);
+      setPhoto(null);
+    }, 1000);
   };
 
   return (
-    <SafeAreaView className="flex-1">
-      <BackButton />
-
+    <SafeAreaView className="flex-1 bg-white px-5">
       <View className="items-center justify-around  mt-5">
         {/* CAMERA ROUND / ROUNDED FRAME */}
         <View className="w-80 h-80 rounded-full overflow-hidden border-4 border-white">
@@ -163,7 +178,7 @@ export default function Presence() {
             <View className="flex flex-row gap-3 items-center ">
               <Feather name="map-pin" color="black" size={18} />
               {loadingAddress ? (
-                <Text>Loading ...</Text>
+                <Text>Sedang mengambil alamat terkini ...</Text>
               ) : (
                 <Text className="font-semibold">{address}</Text>
               )}
@@ -182,13 +197,13 @@ export default function Presence() {
               )}
             </View>
           </View>
-          <TouchableOpacity
-            className="p-4 w-full flex flex-row gap-3 items-center justify-center bg-primary rounded-xl"
-            onPress={capturePhoto}
-          >
-            <Feather name="log-in" color="white" size={18} />
-            <Text className="text-white font-medium">Absen Masuk</Text>
-          </TouchableOpacity>
+          <Button
+            title="Absen Masuk"
+            icon="login"
+            onPress={handlePresence}
+            style={(loadingAddress || loading) && { opacity: 0.5 }}
+            disabled={loadingAddress || loading}
+          />
         </View>
       </View>
     </SafeAreaView>

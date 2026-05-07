@@ -1,14 +1,11 @@
-import Header from "@/components/fragment/header";
-import Title from "@/components/fragment/title";
+import Title from "@/components/ui/title";
 import Feather from "@expo/vector-icons/Feather";
 import React from "react";
 import { Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Sanction() {
   return (
-    <SafeAreaView className="flex-1">
-      <Header title="Sanksi / Peringatan" />
+    <>
       <View className="flex flex-row items-center justify-start gap-x-4 mx-3 mt-5 bg-white rounded-2xl border border-gray-200 p-4">
         <View className="bg-blue-100 self-start p-3 rounded-full">
           <Feather name="check-circle" size={20} color="blue" />
@@ -34,6 +31,6 @@ export default function Sanction() {
           </Text>
         </View>
       </View>
-    </SafeAreaView>
+    </>
   );
 }

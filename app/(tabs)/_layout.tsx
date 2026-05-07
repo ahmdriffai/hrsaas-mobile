@@ -1,16 +1,26 @@
 import Feather from "@expo/vector-icons/Feather";
+import { Image } from "expo-image";
 import { Tabs } from "expo-router";
 import React from "react";
 
 export default function TabLayout() {
   return (
     <Tabs
-      screenOptions={{ tabBarActiveTintColor: "#006D77", headerShown: false }}
+      screenOptions={{
+        tabBarActiveTintColor: "#006D77",
+        headerShadowVisible: false,
+      }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "Beranda",
+          title: "Home",
+          headerTitle: () => (
+            <Image
+              source={require("../../assets/images/logo.png")}
+              style={{ width: 120, height: 40, resizeMode: "contain" }}
+            />
+          ),
           tabBarIcon: ({ color, size }) => (
             <Feather name="home" size={size} color={color} />
           ),
@@ -33,6 +43,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }) => (
             <Feather name="user" size={size} color={color} />
           ),
+          headerShown: false,
         }}
       />
     </Tabs>
