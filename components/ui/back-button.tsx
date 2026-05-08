@@ -1,3 +1,4 @@
+import { Colors } from "@/constans/color";
 import Feather from "@expo/vector-icons/Feather";
 import { useRouter } from "expo-router";
 import React from "react";
@@ -8,10 +9,10 @@ export default function BackButton() {
   return (
     <View className="flex-row mr-4">
       <TouchableOpacity
-        className="p-1 bg-white rounded-full border border-gray-200"
-        onPress={() => router.push("/(tabs)")}
+        className="p-1.5 bg-gray-50 rounded-full border-gray-200"
+        onPress={() => router.back()}
       >
-        <Feather name="chevron-left" size={24} />
+        <Feather name="chevron-left" size={22} color={Colors.light.primary} />
       </TouchableOpacity>
     </View>
   );

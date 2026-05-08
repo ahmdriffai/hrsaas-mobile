@@ -1,4 +1,5 @@
 import BackButton from "@/components/ui/back-button";
+import { Colors } from "@/constans/color";
 import { AuthProvider, useAuth } from "@/features/auth/context/auth-context";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
@@ -21,6 +22,7 @@ function RootNavigator() {
         headerStyle: { backgroundColor: "white" },
         headerShadowVisible: false,
         headerBackTitle: "Kembali",
+        contentStyle: { backgroundColor: Colors.light.background },
         headerLeft: () => <BackButton />,
       }}
     >

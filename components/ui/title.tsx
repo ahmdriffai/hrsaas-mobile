@@ -1,5 +1,5 @@
 import Feather from "@expo/vector-icons/Feather";
-import { useNavigation } from "expo-router";
+import { useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -16,7 +16,7 @@ export default function Title({
   showBack,
   light,
 }: TitleProps) {
-  const navigation = useNavigation();
+  const router = useRouter();
   const iconColor = light ? "#ffffff" : "#111827";
 
   return (
@@ -31,7 +31,7 @@ export default function Title({
             }}
           >
             {showBack && (
-              <TouchableOpacity onPress={() => navigation.goBack()}>
+              <TouchableOpacity onPress={() => router.back()}>
                 <Feather name="chevron-left" size={22} color={iconColor} />
               </TouchableOpacity>
             )}

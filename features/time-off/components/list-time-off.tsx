@@ -70,7 +70,7 @@ const FOOTER_STATUS: Record<
   approved: {
     icon: "check-circle",
     color: Colors.light.success,
-    label: "Approved",
+    label: "Disetujui",
   },
   rejected: { icon: "x-circle", color: Colors.light.error, label: "Ditolak" },
 };
@@ -174,18 +174,20 @@ function TimeOffItem({
 
         <View style={style.infoRow}>
           <View style={style.infoCol}>
-            <Text style={style.infoLabel}>Leave Date</Text>
+            <Text style={style.infoLabel}>Tanggal Cuti / Izin</Text>
             <Text style={style.infoValue}>
               {formatShortDate(item.start_date)}
               {item.end_date ? ` - ${formatShortDate(item.end_date)}` : ""}
             </Text>
           </View>
           <View style={style.infoCol}>
-            <Text style={style.infoLabel}>Total Leave</Text>
-            <Text style={style.infoValue}>{item.requested_days} Days</Text>
+            <Text style={style.infoLabel}>Total Hari</Text>
+            <Text style={style.infoValue}>{item.requested_days} Hari</Text>
           </View>
         </View>
-
+        <View>
+          <Text style={style.infoLabel}>- {item.request_reason}</Text>
+        </View>
         <View style={style.cardFooter}>
           <View style={style.footerStatus}>
             <Feather
@@ -195,12 +197,12 @@ function TimeOffItem({
             />
             <Text style={[style.footerStatusText, { color: footerInfo.color }]}>
               {footerInfo.label}
-              {actionDate ? ` at ${actionDate}` : ""}
+              {actionDate ? ` pada ${actionDate}` : ""}
             </Text>
           </View>
           {item.approvals.length > 0 && (
             <View style={style.approverSection}>
-              <Text style={style.approverByLabel}>By</Text>
+              <Text style={style.approverByLabel}>Persetujuan</Text>
               <StackedAvatars
                 approvals={item.approvals}
                 onPress={() => setSheetVisible(true)}

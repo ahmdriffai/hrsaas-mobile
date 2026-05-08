@@ -1,37 +1,159 @@
-import SignOutButton from "@/features/auth/components/sign-out-button";
+import { Colors } from "@/constans/color";
 import { useAuth } from "@/features/auth/context/auth-context";
+import { useSignOut } from "@/features/auth/hooks/use-signout";
+import { Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+
+const PURPLE = Colors.light.primary;
+const HEADER_HEIGHT = 180;
+
+function SectionLabel({ label }: { label: string }) {
+  return <Text style={styles.sectionLabel}>{label}</Text>;
+}
+
+function MenuItem({
+  icon,
+  label,
+  labelColor = "#1A1A2E",
+  onPress,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  labelColor?: string;
+  onPress?: () => void;
+}) {
+  return (
+    <TouchableOpacity
+      style={styles.menuItem}
+      onPress={onPress}
+      activeOpacity={0.7}
+    >
+      <View style={styles.menuIconWrap}>{icon}</View>
+      <Text style={[styles.menuLabel, { color: labelColor }]}>{label}</Text>
+      <Feather name="chevron-right" size={18} color="#BBBBC0" />
+    </TouchableOpacity>
+  );
+}
 
 export default function Profile() {
   const { user } = useAuth();
+  const { handleSignOut } = useSignOut();
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={styles.root}
+      contentContainerStyle={styles.scrollContent}
+      showsVerticalScrollIndicator={false}
+    >
+      {/* Header */}
       <LinearGradient
-        style={styles.background}
-        colors={["#3F9AAE", "#79C9C5"]}
-        start={{ x: 1, y: 0 }}
-        end={{ x: 0.4, y: 1 }}
+        style={styles.header}
+        colors={[Colors.light.primary, Colors.light.primary]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
       >
-        <Text style={styles.title}>Profile</Text>
+        <Text style={styles.headerTitle}>My Profile</Text>
       </LinearGradient>
-      <View style={styles.card}>
-        <View style={styles.container}>
-          <View style={styles.avatarContainer}>
-            <Text style={styles.avatar}>{user?.name.charAt(0)}</Text>
+
+      {/* Avatar overlapping header */}
+      <View style={styles.avatarWrapper}>
+        <Image
+          source={require("@/assets/images/profile.png")}
+          style={styles.avatar}
+          contentFit="cover"
+        />
+      </View>
+
+      {/* Name + Position */}
+      <View style={styles.nameWrapper}>
+        <View style={styles.nameRow}>
+          <Text style={styles.name}>{user?.name ?? "—"}</Text>
+          <MaterialIcons
+            name="verified"
+            size={20}
+            color="#4A90D9"
+            style={{ marginLeft: 4 }}
+          />
+        </View>
+        <Text style={styles.position}>
+          {user?.employee?.employee_number ?? "—"}
+        </Text>
+      </View>
+
+      {/* Sections */}
+      <View style={styles.content}>
+        {/* CONTACT */}
+        <SectionLabel label="CONTACT" />
+        <View style={styles.card}>
+          <View style={styles.contactRow}>
+            <View style={styles.contactIconWrap}>
+              <Ionicons name="mail" size={14} color="#fff" />
+            </View>
+            <Text style={styles.contactText}>{user?.email ?? "—"}</Text>
           </View>
-          <View style={styles.profileContainer}>
-            <Text style={styles.profileName}>{user?.name}</Text>
-            <Text style={styles.profilePosition}>
-              {user?.employee?.employee_number}
+          <View style={styles.divider} />
+          <View style={styles.contactRow}>
+            <View style={styles.contactIconWrap}>
+              <Ionicons name="location" size={14} color="#fff" />
+            </View>
+            <Text style={styles.contactText}>
+              {user?.employee?.birth_place ?? "—"}
             </Text>
           </View>
-          <Text>Hallo</Text>
         </View>
-        <View>
-          <SignOutButton />
+
+        {/* ACCOUNT */}
+        <SectionLabel label="ACCOUNT" />
+        <View style={styles.card}>
+          <MenuItem
+            icon={<Ionicons name="person" size={18} color={PURPLE} />}
+            label="Personal Data"
+          />
+          <View style={styles.divider} />
+          <MenuItem
+            icon={<Ionicons name="folder" size={18} color={PURPLE} />}
+            label="Office Assets"
+          />
+          <View style={styles.divider} />
+          <MenuItem
+            icon={<MaterialIcons name="payment" size={18} color={PURPLE} />}
+            label="Payroll & Tax"
+          />
+        </View>
+
+        {/* SETTINGS */}
+        <SectionLabel label="SETTINGS" />
+        <View style={styles.card}>
+          <MenuItem
+            icon={<Ionicons name="settings" size={18} color={PURPLE} />}
+            label="Change Password"
+          />
+          <View style={styles.divider} />
+          <MenuItem
+            icon={<Ionicons name="code-slash" size={18} color={PURPLE} />}
+            label="Versioning"
+          />
+          <View style={styles.divider} />
+          <MenuItem
+            icon={<Ionicons name="document-text" size={18} color={PURPLE} />}
+            label="FAQ and Help"
+          />
+          <View style={styles.divider} />
+          <MenuItem
+            icon={<MaterialIcons name="logout" size={18} color="#FF4D4F" />}
+            label="Logout"
+            labelColor="#FF4D4F"
+            onPress={handleSignOut}
+          />
         </View>
       </View>
     </ScrollView>
@@ -39,67 +161,120 @@ export default function Profile() {
 }
 
 const styles = StyleSheet.create({
-  background: {
+  root: {
     flex: 1,
-    minHeight: 300,
-    borderBottomEndRadius: 30,
-    borderBottomStartRadius: 30,
+    backgroundColor: Colors.light.gray100,
+    marginBottom: 35,
+  },
+  scrollContent: {
+    paddingBottom: 40,
+  },
+  header: {
+    height: HEADER_HEIGHT,
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingTop: 60,
-    position: "relative",
+    paddingTop: 56,
   },
-  title: {
+  headerTitle: {
     color: "#fff",
-    fontWeight: 500,
-    fontSize: 16,
-  },
-  card: {
-    position: "relative",
-    top: -130,
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#fff",
-    marginHorizontal: 10,
-    padding: 20,
-    borderRadius: 20,
-    marginBottom: 30,
-  },
-  container: {
-    position: "relative",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 20,
-    top: -70,
-  },
-  profileContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 1,
-    position: "relative",
-  },
-  profileName: {
-    fontWeight: 500,
+    fontWeight: "600",
     fontSize: 17,
   },
-  profilePosition: {
-    fontWeight: 400,
-    fontSize: 12,
-    color: "#999",
-  },
-  avatarContainer: {
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    width: 100,
-    height: 100,
-    borderRadius: "50%",
-    // position: "relative",
-    // top: -70,
-    boxShadow: "0px 2px 10px 0px rgba(0, 0, 0, 0.1)",
+  avatarWrapper: {
+    alignSelf: "center",
+    marginTop: -(HEADER_HEIGHT / 2 - 10),
+    width: 110,
+    height: 110,
+    borderRadius: 20,
+    backgroundColor: "#FFCCE0",
+    overflow: "hidden",
+    borderWidth: 4,
+    borderColor: "#fff",
   },
   avatar: {
-    fontSize: 30,
+    width: "100%",
+    height: "100%",
+  },
+  nameWrapper: {
+    alignItems: "center",
+    marginTop: 12,
+    marginBottom: 24,
+    paddingHorizontal: 16,
+  },
+  nameRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  name: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#1A1A2E",
+  },
+  position: {
+    fontSize: 13,
+    color: PURPLE,
+    marginTop: 3,
+    fontWeight: "500",
+  },
+  content: {
+    paddingHorizontal: 16,
+  },
+  sectionLabel: {
+    fontSize: 12,
+    fontWeight: "700",
+    color: "#444",
+    letterSpacing: 0.8,
+    marginBottom: 8,
+    marginTop: 4,
+  },
+  card: {
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    marginBottom: 20,
+    overflow: "hidden",
+  },
+  contactRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    gap: 12,
+  },
+  contactIconWrap: {
+    width: 28,
+    height: 28,
+    borderRadius: 8,
+    backgroundColor: PURPLE,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  contactText: {
+    fontSize: 14,
+    color: "#333",
+  },
+  divider: {
+    height: 1,
+    backgroundColor: "#F0F0F0",
+    marginHorizontal: 16,
+  },
+  menuItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    gap: 12,
+  },
+  menuIconWrap: {
+    width: 32,
+    height: 32,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(63, 154, 174, 0.1)",
+  },
+  menuLabel: {
+    flex: 1,
+    fontSize: 14,
+    fontWeight: "500",
   },
 });

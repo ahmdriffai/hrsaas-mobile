@@ -21,7 +21,8 @@ export const useSignIn = () => {
       });
       setTimeout(() => router.replace("/(tabs)"), 100);
     },
-    onError: () => {
+    onError: (error) => {
+      console.log(error);
       Toast.show({ type: "error", text1: "Gagal", text2: "Gagal login" });
     },
   });
