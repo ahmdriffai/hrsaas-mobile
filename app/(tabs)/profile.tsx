@@ -4,6 +4,7 @@ import { useSignOut } from "@/features/auth/hooks/use-signout";
 import { Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import React from "react";
 import {
   ScrollView,
@@ -47,6 +48,7 @@ function MenuItem({
 export default function Profile() {
   const { user } = useAuth();
   const { handleSignOut } = useSignOut();
+  const router = useRouter();
 
   return (
     <ScrollView
@@ -117,6 +119,7 @@ export default function Profile() {
           <MenuItem
             icon={<Ionicons name="person" size={18} color={PURPLE} />}
             label="Personal Data"
+            onPress={() => router.push("/employee/personal-data")}
           />
           <View style={styles.divider} />
           <MenuItem

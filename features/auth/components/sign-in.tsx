@@ -1,6 +1,7 @@
 import BottomSheet from "@/components/ui/bottom-sheet";
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
+import { Colors } from "@/constans/color";
 import { useZodForm } from "@/hooks/use-zod-form";
 import Feather from "@expo/vector-icons/Feather";
 import { Controller } from "react-hook-form";
@@ -42,7 +43,9 @@ export default function SignInAuth({ show, setShow }: Props) {
           render={({ field, fieldState }) => (
             <Input
               label="Email"
-              prefixIcon={<Feather name="mail" size={18} color="#999" />}
+              prefixIcon={
+                <Feather name="mail" size={18} color={Colors.light.primary} />
+              }
               value={field.value}
               onChange={field.onChange}
               error={fieldState.error?.message}
@@ -56,7 +59,9 @@ export default function SignInAuth({ show, setShow }: Props) {
           render={({ field, fieldState }) => (
             <Input
               label="Password"
-              prefixIcon={<Feather name="lock" size={18} color="#999" />}
+              prefixIcon={
+                <Feather name="lock" size={18} color={Colors.light.primary} />
+              }
               secure
               value={field.value}
               onChange={field.onChange}

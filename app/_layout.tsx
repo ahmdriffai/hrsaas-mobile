@@ -37,6 +37,10 @@ function RootNavigator() {
           name="time-off/create"
           options={{ title: "Buat Cuti & Izin" }}
         />
+        <Stack.Screen
+          name="employee/personal-data"
+          options={{ title: "Personal Data" }}
+        />
       </Stack.Protected>
       <Stack.Protected guard={!token}>
         <Stack.Screen name="on-board" options={{ headerShown: false }} />
