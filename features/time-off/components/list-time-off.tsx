@@ -1,4 +1,5 @@
 import BottomSheet from "@/components/ui/bottom-sheet";
+import Text from "@/components/ui/text";
 import { Colors } from "@/constans/color";
 import Feather from "@expo/vector-icons/Feather";
 import { useState } from "react";
@@ -7,7 +8,6 @@ import {
   FlatList,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from "react-native";

@@ -1,6 +1,8 @@
 import Feather from "@expo/vector-icons/Feather";
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
+import Text from "./text";
+import TextInput from "./text-input";
 
 interface Props {
   label?: string;

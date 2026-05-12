@@ -1,3 +1,4 @@
+import Text from "@/components/ui/text";
 import { Colors } from "@/constans/color";
 import { useAuth } from "@/features/auth/context/auth-context";
 import { useSignOut } from "@/features/auth/hooks/use-signout";
@@ -6,13 +7,7 @@ import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 
 const PURPLE = Colors.light.primary;
 const HEADER_HEIGHT = 180;

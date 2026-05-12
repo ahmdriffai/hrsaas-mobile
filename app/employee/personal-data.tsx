@@ -1,6 +1,7 @@
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
 import Select, { SelectOption } from "@/components/ui/select";
+import { Colors } from "@/constans/color";
 import { useAuth } from "@/features/auth/context/auth-context";
 import { useZodForm } from "@/hooks/use-zod-form";
 import Feather from "@expo/vector-icons/Feather";
@@ -258,7 +259,7 @@ export default function PersonalDataScreen() {
   );
 }
 
-const PRIMARY = "#3F9AAE";
+const PRIMARY = Colors.light.secondary;
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: "#F5F5F5" },

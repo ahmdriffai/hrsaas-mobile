@@ -2,21 +2,11 @@
   "expo": {
     "name": "BW Akses+",
     "slug": "bw-akses-plus",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "platform",
-    "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "ios": {
-      "supportsTablet": true,
-      "icon": {
-        "light": "./assets/icons/ios-light.png"
-      },
-      "bundleIdentifier": "com.itbawon.bwaksesplus",
-      "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
-      }
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/cf8ff3df-b5d8-48c4-a90a-1e2d4e5b82e2"
     },
     "android": {
       "adaptiveIcon": {
@@ -33,67 +23,17 @@
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION"
       ],
-      "package": "com.itbawon.bwaksesplus"
+      "package": "com.itbawon.bwaksesplus.dev"
     },
-    "web": {
-      "output": "static",
-      "favicon": "./assets/images/favicon.png",
-      "bundler": "metro"
-    },
-    "plugins": [
-      "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./assets/icons/splash-icon-light.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#3F9AAE",
-          "dark": {
-            "backgroundColor": "#3F9AAE"
-          }
-        }
-      ],
-      [
-        "expo-camera",
-        {
-          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
-          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
-          "recordAudioAndroid": true
-        }
-      ],
-      [
-        "expo-location",
-        {
-          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
-        }
-      ],
-      [
-        "expo-navigation-bar",
-        {
-          "enforceContrast": true,
-          "barStyle": "dark-content",
-          "visibility": "visible"
-        }
-      ],
-      "expo-font",
-      "expo-secure-store"
-    ],
-    "experiments": {
-      "typedRoutes": true,
-      "reactCompiler": true
-    },
-    "extra": {
-      "router": {},
-      "eas": {
-        "projectId": "cf8ff3df-b5d8-48c4-a90a-1e2d4e5b82e2"
+    "ios": {
+      "supportsTablet": true,
+      "icon": {
+        "light": "./assets/icons/ios-light.png"
       },
-      "expo-navigation-bar": {
-        "enforceContrast": true,
-        "barStyle": "dark-content",
-        "visibility": "visible"
+      "bundleIdentifier": "com.itbawon.bwaksesplus.dev",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
       }
-    },
-    "owner": "itbawon"
+    }
   }
 }

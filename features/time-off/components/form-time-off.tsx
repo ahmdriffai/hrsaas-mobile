@@ -1,4 +1,3 @@
-import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
 import InputDateRange, { DateRange } from "@/components/ui/input-date-range";
 import Select from "@/components/ui/select";
@@ -12,6 +11,7 @@ import {
   TimeOffRequest,
   TimeOffRequestSchema,
 } from "../schemas/time-off-schema";
+import SubmitCardTimeOff from "./submit-card-time-off";
 
 function toDateStr(d: Date): string {
   return d.toISOString().split("T")[0];
@@ -56,50 +56,53 @@ export default function FormTimeOff() {
     form.formState.errors.end_date?.message;
 
   return (
-    <View style={style.form}>
-      <Controller
-        control={form.control}
-        name="time_off_type_id"
-        render={({ field, fieldState }) => (
-          <Select
-            label="Jenis Cuti"
-            placeholder="Pilih jenis cuti..."
-            options={options}
-            value={field.value}
-            onChange={field.onChange}
-            error={fieldState.error?.message}
-          />
-        )}
-      />
+    <>
+      <View style={style.form}>
+        <Controller
+          control={form.control}
+          name="time_off_type_id"
+          render={({ field, fieldState }) => (
+            <Select
+              label="Jenis Cuti"
+              placeholder="Pilih jenis cuti..."
+              options={options}
+              value={field.value}
+              onChange={field.onChange}
+              error={fieldState.error?.message}
+            />
+          )}
+        />
 
-      <InputDateRange
-        label="Periode Cuti"
-        value={range}
-        onChange={handleRangeChange}
-        error={dateError}
-      />
+        <InputDateRange
+          label="Periode Cuti"
+          value={range}
+          onChange={handleRangeChange}
+          error={dateError}
+        />
 
-      <Controller
-        control={form.control}
-        name="request_reason"
-        render={({ field, fieldState }) => (
-          <Input
-            label="Alasan Cuti"
-            value={field.value}
-            onChange={field.onChange}
-            error={fieldState.error?.message}
-          />
-        )}
-      />
+        <Controller
+          control={form.control}
+          name="request_reason"
+          render={({ field, fieldState }) => (
+            <Input
+              label="Alasan Cuti"
+              value={field.value}
+              onChange={field.onChange}
+              error={fieldState.error?.message}
+            />
+          )}
+        />
 
-      <Button
+        {/* <Button
         title="Ajukan Cuti"
         fullWidth
         style={style.submitBtn}
         onPress={form.handleSubmit(onSubmit)}
         disabled={isPending}
-      />
-    </View>
+      /> */}
+      </View>
+      <SubmitCardTimeOff onPress={form.handleSubmit(onSubmit)} />
+    </>
   );
 }
 

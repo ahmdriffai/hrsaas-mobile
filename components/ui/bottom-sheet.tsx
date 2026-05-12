@@ -7,9 +7,9 @@ import {
   Platform,
   Pressable,
   StyleSheet,
-  Text,
   View,
 } from "react-native";
+import Text from "./text";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 

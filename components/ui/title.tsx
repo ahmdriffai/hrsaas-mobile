@@ -1,7 +1,8 @@
 import Feather from "@expo/vector-icons/Feather";
 import { useRouter } from "expo-router";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import Text from "./text";
 
 interface TitleProps {
   title: string;

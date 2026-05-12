@@ -1,5 +1,6 @@
+import Text from "@/components/ui/text";
 import { Colors } from "@/constans/color";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 export default function TimeOffCard() {
   return (

@@ -6,13 +6,35 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "channel": "development",
+      "env": {
+        "APP_ENV": "development",
+        "EXPO_PUBLIC_APP_ENV": "development",
+        "EXPO_PUBLIC_API_URL": "https://devsaas.bankwonosobo.co.id",
+        "EXPO_PUBLIC_SENTRY": "false"
+      }
     },
-    "preview": {
-      "distribution": "internal"
+    "staging": {
+      "distribution": "internal",
+      "channel": "staging",
+      "autoIncrement": true,
+      "env": {
+        "APP_ENV": "staging",
+        "EXPO_PUBLIC_APP_ENV": "staging",
+        "EXPO_PUBLIC_API_URL": "https://staging-api.example.com",
+        "EXPO_PUBLIC_SENTRY": "true"
+      }
     },
     "production": {
-      "autoIncrement": true
+      "channel": "production",
+      "autoIncrement": true,
+      "env": {
+        "APP_ENV": "production",
+        "EXPO_PUBLIC_APP_ENV": "production",
+        "EXPO_PUBLIC_API_URL": "https://api.example.com",
+        "EXPO_PUBLIC_SENTRY": "true"
+      }
     }
   },
   "submit": {

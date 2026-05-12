@@ -1,6 +1,7 @@
+import Text from "@/components/ui/text";
 import { useSignOut } from "@/features/auth/hooks/use-signout";
 import Feather from "@expo/vector-icons/Feather";
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 
 export default function SignOutButton() {
   const { handleSignOut } = useSignOut();

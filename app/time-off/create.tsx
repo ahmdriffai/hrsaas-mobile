@@ -1,6 +1,7 @@
+import Text from "@/components/ui/text";
 import { Colors } from "@/constans/color";
 import FormTimeOff from "@/features/time-off/components/form-time-off";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 export default function CreateTimeOffPage() {
   return (
@@ -17,7 +18,6 @@ export default function CreateTimeOffPage() {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 20,
     backgroundColor: Colors.light.white,
     padding: 20,
     borderRadius: 10,

@@ -1,9 +1,10 @@
 import HeroCard from "@/components/ui/hero-card";
+import Text from "@/components/ui/text";
 import { useAuth } from "@/features/auth/context/auth-context";
 import Feather from "@expo/vector-icons/Feather";
 import { Href, useRouter } from "expo-router";
 import React, { useState } from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, TouchableOpacity, View } from "react-native";
 
 type FeatherIconName = React.ComponentProps<typeof Feather>["name"];
 
@@ -47,7 +48,7 @@ const menus: Menu[] = [
     icon: "map-pin",
     bgColor: "bg-red-100",
     iconColor: "red",
-    route: "/presence",
+    route: "/visit",
   },
   // {
   //   title: "Kalender",
@@ -99,14 +100,14 @@ const menus: Menu[] = [
   //   iconColor: "orange",
   //   route: "/presence",
   // },
-  {
-    title: "Sanksi",
-    desc: "Peringatan dan Sanksi",
-    icon: "info",
-    bgColor: "bg-amber-100",
-    iconColor: "orange",
-    route: "/sanction",
-  },
+  // {
+  //   title: "Sanksi",
+  //   desc: "Peringatan dan Sanksi",
+  //   icon: "info",
+  //   bgColor: "bg-amber-100",
+  //   iconColor: "orange",
+  //   route: "/sanction",
+  // },
 ];
 
 export default function Beranda() {

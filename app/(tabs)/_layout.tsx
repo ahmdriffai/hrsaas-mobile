@@ -78,7 +78,7 @@ export default function TabLayout() {
         }}
       />
 
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="activity"
         options={{
           title: "Aktivitas",
@@ -101,7 +101,7 @@ export default function TabLayout() {
             </View>
           ),
         }}
-      />
+      /> */}
 
       <Tabs.Screen
         name="profile"

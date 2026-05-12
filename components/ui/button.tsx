@@ -5,13 +5,19 @@ import {
   Pressable,
   StyleProp,
   StyleSheet,
-  Text,
   ViewStyle,
 } from "react-native";
+import Text from "./text";
 
 const PRIMARY = "#3F9AAE";
 
-type Variant = "primary" | "outline" | "ghost" | "secondary" | "danger" | "success";
+type Variant =
+  | "primary"
+  | "outline"
+  | "ghost"
+  | "secondary"
+  | "danger"
+  | "success";
 
 interface Props {
   title: string;
@@ -116,9 +122,7 @@ export default function Button({
         onPressOut={handlePressOut}
         disabled={disabled}
       >
-        {icon && (
-          <MaterialIcons name={icon} size={18} color={iconColor} />
-        )}
+        {icon && <MaterialIcons name={icon} size={18} color={iconColor} />}
         <Text style={[styles.label, { color: text }]}>{title}</Text>
       </Pressable>
     </Animated.View>

@@ -1,6 +1,7 @@
 import Feather from "@expo/vector-icons/Feather";
 import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
+import Text from "./text";
 
 export default function HeroCard() {
   const [time, setTime] = useState<Date>(new Date());

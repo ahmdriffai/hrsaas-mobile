@@ -1,15 +1,26 @@
 import Feather from "@expo/vector-icons/Feather";
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import BottomSheet from "./bottom-sheet";
+import Text from "./text";
 
 const PRIMARY = "#3F9AAE";
 const RANGE_BG = "#EBF6F9";
 
 const DAYS = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
 const MONTHS = [
-  "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-  "Juli", "Agustus", "September", "Oktober", "November", "Desember",
+  "Januari",
+  "Februari",
+  "Maret",
+  "April",
+  "Mei",
+  "Juni",
+  "Juli",
+  "Agustus",
+  "September",
+  "Oktober",
+  "November",
+  "Desember",
 ];
 
 export interface DateRange {
@@ -54,24 +65,35 @@ function buildCalendar(year: number, month: number): (Date | null)[][] {
   return weeks;
 }
 
-export default function InputDateRange({ label, value, onChange, error }: Props) {
+export default function InputDateRange({
+  label,
+  value,
+  onChange,
+  error,
+}: Props) {
   const today = startOfDay(new Date());
   const [open, setOpen] = useState(false);
   const [cursor, setCursor] = useState<"from" | "to">("from");
-  const [draft, setDraft] = useState<DateRange>(value ?? { from: null, to: null });
+  const [draft, setDraft] = useState<DateRange>(
+    value ?? { from: null, to: null },
+  );
   const [viewYear, setViewYear] = useState(today.getFullYear());
   const [viewMonth, setViewMonth] = useState(today.getMonth());
 
   const weeks = buildCalendar(viewYear, viewMonth);
 
   const prevMonth = () => {
-    if (viewMonth === 0) { setViewMonth(11); setViewYear(y => y - 1); }
-    else setViewMonth(m => m - 1);
+    if (viewMonth === 0) {
+      setViewMonth(11);
+      setViewYear((y) => y - 1);
+    } else setViewMonth((m) => m - 1);
   };
 
   const nextMonth = () => {
-    if (viewMonth === 11) { setViewMonth(0); setViewYear(y => y + 1); }
-    else setViewMonth(m => m + 1);
+    if (viewMonth === 11) {
+      setViewMonth(0);
+      setViewYear((y) => y + 1);
+    } else setViewMonth((m) => m + 1);
   };
 
   const handleDay = (date: Date) => {
@@ -83,7 +105,7 @@ export default function InputDateRange({ label, value, onChange, error }: Props)
       if (draft.from && d < draft.from) {
         setDraft({ from: d, to: draft.from });
       } else {
-        setDraft(prev => ({ ...prev, to: d }));
+        setDraft((prev) => ({ ...prev, to: d }));
       }
       setCursor("from");
     }
@@ -107,8 +129,7 @@ export default function InputDateRange({ label, value, onChange, error }: Props)
     const d = startOfDay(date);
     const isFrom = draft.from && sameDay(d, draft.from);
     const isTo = draft.to && sameDay(d, draft.to);
-    const inRange =
-      draft.from && draft.to && d > draft.from && d < draft.to;
+    const inRange = draft.from && draft.to && d > draft.from && d < draft.to;
     const isToday = sameDay(d, today);
 
     if (isFrom || isTo) return styles.daySelected;
@@ -122,8 +143,7 @@ export default function InputDateRange({ label, value, onChange, error }: Props)
     const d = startOfDay(date);
     const isFrom = draft.from && sameDay(d, draft.from);
     const isTo = draft.to && sameDay(d, draft.to);
-    const inRange =
-      draft.from && draft.to && d > draft.from && d < draft.to;
+    const inRange = draft.from && draft.to && d > draft.from && d < draft.to;
 
     if (isFrom || isTo) return styles.dayTextSelected;
     if (inRange) return styles.dayTextInRange;
@@ -136,8 +156,8 @@ export default function InputDateRange({ label, value, onChange, error }: Props)
     fromLabel && toLabel
       ? `${fromLabel}  →  ${toLabel}`
       : fromLabel
-      ? `${fromLabel}  →  ...`
-      : null;
+        ? `${fromLabel}  →  ...`
+        : null;
 
   return (
     <View style={styles.container}>
@@ -147,14 +167,22 @@ export default function InputDateRange({ label, value, onChange, error }: Props)
         style={[styles.trigger, error ? styles.triggerError : null]}
         onPress={handleOpen}
       >
-        <Feather name="calendar" size={16} color={error ? "#FF4D4F" : "#999"} style={styles.calIcon} />
+        <Feather
+          name="calendar"
+          size={16}
+          color={error ? "#FF4D4F" : "#999"}
+          style={styles.calIcon}
+        />
         <Text style={[styles.triggerText, !displayText && styles.placeholder]}>
           {displayText ?? "Pilih rentang tanggal"}
         </Text>
         {displayText && (
           <Pressable
             hitSlop={8}
-            onPress={() => { setDraft({ from: null, to: null }); onChange?.({ from: null, to: null }); }}
+            onPress={() => {
+              setDraft({ from: null, to: null });
+              onChange?.({ from: null, to: null });
+            }}
           >
             <Feather name="x" size={16} color="#999" />
           </Pressable>
@@ -163,7 +191,11 @@ export default function InputDateRange({ label, value, onChange, error }: Props)
 
       {error && <Text style={styles.errorText}>{error}</Text>}
 
-      <BottomSheet visible={open} onClose={() => setOpen(false)} snapHeight={0.65}>
+      <BottomSheet
+        visible={open}
+        onClose={() => setOpen(false)}
+        snapHeight={0.65}
+      >
         {/* Month navigation */}
         <View style={styles.nav}>
           <Pressable onPress={prevMonth} hitSlop={10}>
@@ -180,7 +212,9 @@ export default function InputDateRange({ label, value, onChange, error }: Props)
         {/* Day-of-week headers */}
         <View style={styles.weekRow}>
           {DAYS.map((d) => (
-            <Text key={d} style={styles.weekDay}>{d}</Text>
+            <Text key={d} style={styles.weekDay}>
+              {d}
+            </Text>
           ))}
         </View>
 

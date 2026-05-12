@@ -4,18 +4,24 @@ import { Dimensions, StyleSheet, View } from "react-native";
 
 interface Props {
   onPress: () => void;
+  disabled?: boolean;
 }
 
-export default function SubmitCardTimeOff({ onPress }: Props) {
+export default function SubmitCardVisit({ onPress, disabled }: Props) {
   return (
     <View style={style.containerSubmit}>
-      <Button title="Pengajuan Cuti" fullWidth onPress={onPress} />
+      <Button
+        variant="primary"
+        title="Tambah Kunjungan"
+        fullWidth
+        onPress={onPress}
+        disabled={disabled}
+      />
     </View>
   );
 }
 
 const windowWidth = Dimensions.get("window").width;
-
 const style = StyleSheet.create({
   containerSubmit: {
     position: "absolute",
@@ -24,7 +30,7 @@ const style = StyleSheet.create({
     padding: 20,
     paddingBottom: 40,
     bottom: 0,
-    right: 0,
+    left: 0,
     borderTopColor: Colors.light.border,
     borderTopWidth: 0.4,
   },

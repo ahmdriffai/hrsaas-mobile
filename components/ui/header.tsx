@@ -1,7 +1,8 @@
 import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "expo-router";
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
+import Text from "./text";
 
 interface HeaderProps {
   title: string;

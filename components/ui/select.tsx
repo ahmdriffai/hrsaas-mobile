@@ -1,7 +1,8 @@
 import Feather from "@expo/vector-icons/Feather";
 import { useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import BottomSheet from "./bottom-sheet";
+import Text from "./text";
 
 const PRIMARY = "#3F9AAE";
 
