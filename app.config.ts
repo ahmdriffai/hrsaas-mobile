@@ -5,7 +5,7 @@ type AppEnv = "development" | "staging" | "production";
 const APP_ENV = (process.env.APP_ENV ?? "development") as AppEnv;
 
 // Single source of truth for version
-const APP_VERSION = "1.1.0";
+const APP_VERSION = "1.2.1";
 
 const envConfig: Record<
   AppEnv,
@@ -13,18 +13,18 @@ const envConfig: Record<
 > = {
   development: {
     name: "BW Akses+ (Dev)",
-    bundleId: "com.itbawon.bwaksesplus.dev",
-    androidPackage: "com.itbawon.bwaksesplus.dev",
+    bundleId: "id.co.bankwonosobo.bwaksesplus.dev",
+    androidPackage: "id.co.bankwonosobo.bwaksesplus.dev",
   },
   staging: {
     name: "BW Akses+ (Staging)",
-    bundleId: "com.itbawon.bwaksesplus.staging",
-    androidPackage: "com.itbawon.bwaksesplus.staging",
+    bundleId: "id.co.bankwonosobo.bwaksesplus.staging",
+    androidPackage: "id.co.bankwonosobo.bwaksesplus.staging",
   },
   production: {
     name: "BW Akses+",
-    bundleId: "com.itbawon.bwaksesplus",
-    androidPackage: "com.itbawon.bwaksesplus",
+    bundleId: "id.co.bankwonosobo.bwaksesplus",
+    androidPackage: "id.co.bankwonosobo.bwaksesplus",
   },
 };
 
@@ -89,8 +89,7 @@ export default (_ctx: ConfigContext): ExpoConfig => ({
       "expo-camera",
       {
         cameraPermission: "Allow $(PRODUCT_NAME) to access your camera",
-        microphonePermission:
-          "Allow $(PRODUCT_NAME) to access your microphone",
+        microphonePermission: "Allow $(PRODUCT_NAME) to access your microphone",
         recordAudioAndroid: true,
       },
     ],

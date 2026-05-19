@@ -116,7 +116,7 @@ export default function Profile() {
             label="Personal Data"
             onPress={() => router.push("/employee/personal-data")}
           />
-          <View style={styles.divider} />
+          {/* <View style={styles.divider} />
           <MenuItem
             icon={<Ionicons name="folder" size={18} color={PURPLE} />}
             label="Office Assets"
@@ -125,13 +125,13 @@ export default function Profile() {
           <MenuItem
             icon={<MaterialIcons name="payment" size={18} color={PURPLE} />}
             label="Payroll & Tax"
-          />
+          /> */}
         </View>
 
         {/* SETTINGS */}
         <SectionLabel label="SETTINGS" />
         <View style={styles.card}>
-          <MenuItem
+          {/* <MenuItem
             icon={<Ionicons name="settings" size={18} color={PURPLE} />}
             label="Change Password"
           />
@@ -145,7 +145,7 @@ export default function Profile() {
             icon={<Ionicons name="document-text" size={18} color={PURPLE} />}
             label="FAQ and Help"
           />
-          <View style={styles.divider} />
+          <View style={styles.divider} /> */}
           <MenuItem
             icon={<MaterialIcons name="logout" size={18} color="#FF4D4F" />}
             label="Logout"

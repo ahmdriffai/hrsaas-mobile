@@ -33,6 +33,7 @@ interface Props {
   value?: DateRange;
   onChange?: (range: DateRange) => void;
   error?: string;
+  minDate?: Date;
 }
 
 function fmt(d: Date | null) {
@@ -70,8 +71,10 @@ export default function InputDateRange({
   value,
   onChange,
   error,
+  minDate,
 }: Props) {
   const today = startOfDay(new Date());
+  const minDay = minDate ? startOfDay(minDate) : null;
   const [open, setOpen] = useState(false);
   const [cursor, setCursor] = useState<"from" | "to">("from");
   const [draft, setDraft] = useState<DateRange>(
@@ -95,6 +98,9 @@ export default function InputDateRange({
       setViewYear((y) => y + 1);
     } else setViewMonth((m) => m + 1);
   };
+
+  const isBeforeMin = (date: Date) =>
+    minDay !== null && startOfDay(date) < minDay;
 
   const handleDay = (date: Date) => {
     const d = startOfDay(date);
@@ -226,10 +232,16 @@ export default function InputDateRange({
                 key={di}
                 style={[styles.day, date ? getDayStyle(date) : null]}
                 onPress={() => date && handleDay(date)}
-                disabled={!date}
+                disabled={!date || isBeforeMin(date)}
               >
                 {date && (
-                  <Text style={[styles.dayText, getDayTextStyle(date)]}>
+                  <Text
+                    style={[
+                      styles.dayText,
+                      getDayTextStyle(date),
+                      isBeforeMin(date) && styles.dayTextDisabled,
+                    ]}
+                  >
                     {date.getDate()}
                   </Text>
                 )}
@@ -362,6 +374,9 @@ const styles = StyleSheet.create({
   dayTextInRange: {
     color: PRIMARY,
     fontWeight: "500",
+  },
+  dayTextDisabled: {
+    color: "#D1D5DB",
   },
   hint: {
     textAlign: "center",

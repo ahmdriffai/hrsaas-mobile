@@ -17,8 +17,15 @@ function toDateStr(d: Date): string {
   return d.toISOString().split("T")[0];
 }
 
+function addDays(date: Date, days: number): Date {
+  const result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+}
+
 export default function FormTimeOff() {
   const [range, setRange] = useState<DateRange>({ from: null, to: null });
+  const minDate = addDays(new Date(), 3);
   const { data, isLoading } = useGetTimeOffType();
   const { mutate: createTimeOff, isPending } = useCreateTimeOff();
 
@@ -78,6 +85,7 @@ export default function FormTimeOff() {
           value={range}
           onChange={handleRangeChange}
           error={dateError}
+          minDate={minDate}
         />
 
         <Controller
@@ -92,14 +100,6 @@ export default function FormTimeOff() {
             />
           )}
         />
-
-        {/* <Button
-        title="Ajukan Cuti"
-        fullWidth
-        style={style.submitBtn}
-        onPress={form.handleSubmit(onSubmit)}
-        disabled={isPending}
-      /> */}
       </View>
       <SubmitCardTimeOff onPress={form.handleSubmit(onSubmit)} />
     </>

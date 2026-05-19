@@ -50,6 +50,10 @@ function RootNavigator() {
           options={{ title: "Buat Cuti & Izin" }}
         />
         <Stack.Screen
+          name="time-off-approval/index"
+          options={{ title: "Persetujuan Cuti", headerShown: false }}
+        />
+        <Stack.Screen
           name="employee/personal-data"
           options={{ title: "Personal Data" }}
         />

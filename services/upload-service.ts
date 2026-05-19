@@ -15,7 +15,7 @@ export const uploadPhoto = async (photo: PhotoResult): Promise<string> => {
 
   if (response.status !== 200 || !response.data?.data?.url) {
     throw new Error(
-      response.data?.error || response.data?.errors || "Gagal upload foto"
+      response.data?.error || response.data?.errors || "Gagal upload foto",
     );
   }
 

@@ -3,9 +3,9 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "start": "APP_ENV=development expo start",
-    "start:staging": "APP_ENV=staging expo start --env-file .env.staging",
-    "start:prod": "APP_ENV=production expo start --env-file .env.production",
+    "start": "APP_ENV=development dotenv -e .env.development -- expo start",
+    "start:staging": "EXPO_NO_DOTENV=1 APP_ENV=staging dotenv -e .env.staging -- expo start",
+    "start:prod": "EXPO_NO_DOTENV=1 APP_ENV=production dotenv -e .env.production -- expo start",
     "android": "APP_ENV=development expo run:android",
     "ios": "APP_ENV=development expo run:ios",
     "web": "APP_ENV=development expo start --web",
@@ -83,6 +83,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.2",
     "@types/react": "~19.1.0",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~10.0.0",
     "postcss": "^8.5.9",

@@ -31,7 +31,7 @@ export default function HeroCard() {
         </View>
         <View className="flex gap-2 items-center">
           <Text className="text-[10px] text-white font-light">Check-in</Text>
-          <Text className="text-lg text-white font-semibold">08:40</Text>
+          <Text className="text-lg text-white font-semibold">-</Text>
         </View>
         <View className="px-5">
           <Text className="text-white text-2xl">...</Text>

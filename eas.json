@@ -22,7 +22,7 @@
       "env": {
         "APP_ENV": "staging",
         "EXPO_PUBLIC_APP_ENV": "staging",
-        "EXPO_PUBLIC_API_URL": "https://staging-api.example.com",
+        "EXPO_PUBLIC_API_URL": "https://api-akses.bankwonosobo.co.id",
         "EXPO_PUBLIC_SENTRY": "true"
       }
     },
@@ -32,7 +32,7 @@
       "env": {
         "APP_ENV": "production",
         "EXPO_PUBLIC_APP_ENV": "production",
-        "EXPO_PUBLIC_API_URL": "https://api.example.com",
+        "EXPO_PUBLIC_API_URL": "https://api-akses.bankwonosobo.co.id",
         "EXPO_PUBLIC_SENTRY": "true"
       }
     }

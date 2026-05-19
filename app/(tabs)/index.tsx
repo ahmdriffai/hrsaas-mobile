@@ -43,6 +43,14 @@ const menus: Menu[] = [
     route: "/time-off",
   },
   {
+    title: "Persetujuan Cuti",
+    desc: "Persetujuan karyawan cuti",
+    icon: "check-circle",
+    bgColor: "bg-blue-100",
+    iconColor: "blue",
+    route: "/time-off-approval",
+  },
+  {
     title: "Kunjungan Client",
     desc: "Pengajuan kunjungan client",
     icon: "map-pin",
@@ -127,10 +135,10 @@ export default function Beranda() {
             <Text className="text-xs text-gray-600">Selamat Pagi</Text>
             <Text className="text-xl font-semibold">{user?.name}</Text>
           </View>
-          <TouchableOpacity className="relative" onPress={signOut}>
+          {/* <TouchableOpacity className="relative" onPress={signOut}>
             <Feather size={22} name="bell" />
             <View className="w-2 h-2 bg-primary absolute right-0 rounded-full"></View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
 
         {/* Hero card */}
