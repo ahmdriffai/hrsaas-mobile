@@ -5,7 +5,7 @@ type AppEnv = "development" | "staging" | "production";
 const APP_ENV = (process.env.APP_ENV ?? "development") as AppEnv;
 
 // Single source of truth for version
-const APP_VERSION = "1.2.2";
+const APP_VERSION = "1.2.3";
 
 const envConfig: Record<
   AppEnv,

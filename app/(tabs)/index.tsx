@@ -4,7 +4,7 @@ import { useAuth } from "@/features/auth/context/auth-context";
 import Feather from "@expo/vector-icons/Feather";
 import { Href, useRouter } from "expo-router";
 import React, { useState } from "react";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, TouchableOpacity, View } from "react-native";
 
 type FeatherIconName = React.ComponentProps<typeof Feather>["name"];
 
@@ -122,14 +122,21 @@ export default function Beranda() {
   // Initialize the state with the current time
   const [showAll, setShowAll] = useState(false);
   const router = useRouter();
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
 
   const visibleMenus = showAll ? menus : menus.slice(0, 6);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       {/* Header */}
+
       <View className="bg-white pt-2 px-6 pb-7 border-b border-gray-100">
+        <View>
+          <Image
+            source={require("../../assets/images/logo.png")}
+            style={{ width: 120, height: 40, resizeMode: "contain" }}
+          />
+        </View>
         <View className="py-4 flex flex-row items-center justify-between">
           <View className="flex gap-1">
             <Text className="text-xs text-gray-600">Selamat Pagi</Text>

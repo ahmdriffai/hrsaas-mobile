@@ -15,7 +15,7 @@ import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Toaster from "react-native-toast-message";
 import "../global.css";
 
@@ -29,41 +29,46 @@ function RootNavigator() {
   if (loading) return null;
 
   return (
-    <Stack
-      screenOptions={{
-        headerStyle: { backgroundColor: "white" },
-        headerShadowVisible: false,
-        headerBackTitle: "Kembali",
-        contentStyle: { backgroundColor: Colors.light.background },
-        headerLeft: () => <BackButton />,
-      }}
-    >
-      <Stack.Protected guard={!!token}>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="presence" options={{ title: "Kehadiran Harian" }} />
-        <Stack.Screen
-          name="time-off/index"
-          options={{ title: "Cuti & Izin", headerShown: false }}
-        />
-        <Stack.Screen
-          name="time-off/create"
-          options={{ title: "Buat Cuti & Izin" }}
-        />
-        <Stack.Screen
-          name="time-off-approval/index"
-          options={{ title: "Persetujuan Cuti", headerShown: false }}
-        />
-        <Stack.Screen
-          name="employee/personal-data"
-          options={{ title: "Personal Data" }}
-        />
-        <Stack.Screen name="visit/index" options={{ headerShown: false }} />
-        <Stack.Screen name="visit/create" options={{ title: "Kunjungan" }} />
-      </Stack.Protected>
-      <Stack.Protected guard={!token}>
-        <Stack.Screen name="on-board" options={{ headerShown: false }} />
-      </Stack.Protected>
-    </Stack>
+    <SafeAreaView style={{ flex: 1 }}>
+      <Stack
+        screenOptions={{
+          headerStyle: { backgroundColor: "white" },
+          headerShadowVisible: false,
+          headerBackTitle: "Kembali",
+          contentStyle: { backgroundColor: Colors.light.background },
+          headerLeft: () => <BackButton />,
+        }}
+      >
+        <Stack.Protected guard={!!token}>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="presence"
+            options={{ title: "Kehadiran Harian" }}
+          />
+          <Stack.Screen
+            name="time-off/index"
+            options={{ title: "Cuti & Izin", headerShown: false }}
+          />
+          <Stack.Screen
+            name="time-off/create"
+            options={{ title: "Buat Cuti & Izin" }}
+          />
+          <Stack.Screen
+            name="time-off-approval/index"
+            options={{ title: "Persetujuan Cuti", headerShown: false }}
+          />
+          <Stack.Screen
+            name="employee/personal-data"
+            options={{ title: "Personal Data" }}
+          />
+          <Stack.Screen name="visit/index" options={{ headerShown: false }} />
+          <Stack.Screen name="visit/create" options={{ title: "Kunjungan" }} />
+        </Stack.Protected>
+        <Stack.Protected guard={!token}>
+          <Stack.Screen name="on-board" options={{ headerShown: false }} />
+        </Stack.Protected>
+      </Stack>
+    </SafeAreaView>
   );
 }
 

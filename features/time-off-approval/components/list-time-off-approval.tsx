@@ -25,20 +25,24 @@ const TABS: { label: string; value: TabStatus }[] = [
 
 const STATUS_CONFIG: Record<
   TabStatus,
-  { icon: React.ComponentProps<typeof Feather>["name"]; color: string; label: string }
+  {
+    icon: React.ComponentProps<typeof Feather>["name"];
+    color: string;
+    label: string;
+  }
 > = {
-  PENDING: { icon: "clock", color: Colors.light.warning, label: "Menunggu Tindakan" },
-  APPROVED: { icon: "check-circle", color: Colors.light.success, label: "Disetujui" },
+  PENDING: {
+    icon: "clock",
+    color: Colors.light.warning,
+    label: "Menunggu Tindakan",
+  },
+  APPROVED: {
+    icon: "check-circle",
+    color: Colors.light.success,
+    label: "Disetujui",
+  },
   REJECTED: { icon: "x-circle", color: Colors.light.error, label: "Ditolak" },
 };
-
-function formatDate(ms: number): string {
-  return new Date(ms).toLocaleDateString("id-ID", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-}
 
 function formatShort(ms: number): string {
   return new Date(ms).toLocaleDateString("id-ID", {
@@ -164,7 +168,7 @@ function ApprovalCard({
     if (!actionType) return;
     mutate(
       { action: actionType, action_reason: reason },
-      { onSuccess: () => setActionType(null) }
+      { onSuccess: () => setActionType(null) },
     );
   };
 
@@ -173,27 +177,10 @@ function ApprovalCard({
       <View style={s.card}>
         {/* Header */}
         <View style={s.cardHeader}>
-          <View style={s.avatarCircle}>
-            <Text style={s.avatarText}>
-              {req.employee.fullname[0]?.toUpperCase() ?? "?"}
-            </Text>
-          </View>
-          <View style={s.headerInfo}>
-            <Text style={s.employeeName}>{req.employee.fullname}</Text>
-            <View style={s.typePill}>
-              <Text style={s.typePillText}>{req.time_off_type.name}</Text>
-            </View>
-          </View>
-          <View
-            style={[
-              s.statusBadge,
-              { backgroundColor: statusCfg.color + "18" },
-            ]}
-          >
-            <Feather name={statusCfg.icon} size={12} color={statusCfg.color} />
-            <Text style={[s.statusBadgeText, { color: statusCfg.color }]}>
-              {statusCfg.label}
-            </Text>
+          <Feather name="user" size={18} color={Colors.light.primary} />
+          <Text style={s.cardHeaderTitle}>{req.employee.fullname}</Text>
+          <View style={s.typePill}>
+            <Text style={s.typePillText}>{req.time_off_type.name}</Text>
           </View>
         </View>
 
@@ -201,7 +188,7 @@ function ApprovalCard({
 
         {/* Info row */}
         <View style={s.infoRow}>
-          <View style={s.infoBlock}>
+          <View style={s.infoCol}>
             <Text style={s.infoLabel}>Tanggal</Text>
             <Text style={s.infoValue}>
               {formatShort(req.start_date)}
@@ -210,50 +197,45 @@ function ApprovalCard({
                 : ""}
             </Text>
           </View>
-          <View style={s.infoBlock}>
-            <Text style={s.infoLabel}>Durasi</Text>
+          <View style={s.infoCol}>
+            <Text style={s.infoLabel}>Total Hari</Text>
             <Text style={s.infoValue}>{req.requested_days} Hari</Text>
-          </View>
-          <View style={s.infoBlock}>
-            <Text style={s.infoLabel}>Diajukan</Text>
-            <Text style={s.infoValue}>{formatDate(req.created_at)}</Text>
           </View>
         </View>
 
         {req.request_reason ? (
-          <View style={s.reasonBox}>
-            <Feather
-              name="message-square"
-              size={12}
-              color={Colors.light.textSecondary}
-            />
-            <Text style={s.reasonText} numberOfLines={2}>
-              {req.request_reason}
-            </Text>
-          </View>
+          <Text style={s.infoLabel}>- {req.request_reason}</Text>
         ) : null}
 
-        {/* Actions */}
-        {activeTab === "PENDING" && (
-          <View style={s.actionRow}>
-            <TouchableOpacity
-              style={s.rejectBtn}
-              onPress={() => setActionType("REJECT")}
-              activeOpacity={0.8}
-            >
-              <Feather name="x" size={14} color={Colors.light.error} />
-              <Text style={s.rejectBtnText}>Tolak</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={s.approveBtn}
-              onPress={() => setActionType("APPROVE")}
-              activeOpacity={0.8}
-            >
-              <Feather name="check" size={14} color="#fff" />
-              <Text style={s.approveBtnText}>Setujui</Text>
-            </TouchableOpacity>
+        {/* Footer */}
+        <View style={s.cardFooter}>
+          <View style={s.footerStatus}>
+            <Feather name={statusCfg.icon} size={15} color={statusCfg.color} />
+            <Text style={[s.footerStatusText, { color: statusCfg.color }]}>
+              {statusCfg.label}
+            </Text>
           </View>
-        )}
+          {activeTab === "PENDING" && (
+            <View style={s.actionRow}>
+              <TouchableOpacity
+                style={s.rejectBtn}
+                onPress={() => setActionType("REJECT")}
+                activeOpacity={0.8}
+              >
+                <Feather name="x" size={13} color={Colors.light.error} />
+                <Text style={s.rejectBtnText}>Tolak</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={s.approveBtn}
+                onPress={() => setActionType("APPROVE")}
+                activeOpacity={0.8}
+              >
+                <Feather name="check" size={13} color="#fff" />
+                <Text style={s.approveBtnText}>Setujui</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
       </View>
 
       <ActionSheet
@@ -334,10 +316,14 @@ const s = StyleSheet.create({
     borderRadius: 8,
   },
   tabItemActive: { backgroundColor: Colors.light.primary },
-  tabLabel: { fontSize: 11, fontWeight: "500", color: Colors.light.textSecondary },
+  tabLabel: {
+    fontSize: 11,
+    fontWeight: "500",
+    color: Colors.light.textSecondary,
+  },
   tabLabelActive: { color: Colors.light.textInverse },
   loader: { marginTop: 40 },
-  listContent: { gap: 10, paddingBottom: 40 },
+  listContent: { gap: 10, paddingBottom: 20 },
   emptyContainer: { flex: 1 },
   emptyWrapper: {
     flex: 1,
@@ -349,38 +335,20 @@ const s = StyleSheet.create({
   // Card
   card: {
     backgroundColor: Colors.light.surface,
-    borderRadius: 14,
+    borderRadius: 12,
     padding: 14,
     gap: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
   },
   cardHeader: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
+    gap: 8,
   },
-  avatarCircle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: Colors.light.primaryLight,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  avatarText: {
-    fontSize: 16,
+  cardHeaderTitle: {
+    fontSize: 15,
     fontWeight: "700",
-    color: Colors.light.white,
-  },
-  headerInfo: { flex: 1, gap: 4 },
-  employeeName: {
-    fontSize: 14,
-    fontWeight: "600",
     color: Colors.light.textPrimary,
+    flex: 1,
   },
   typePill: {
     alignSelf: "flex-start",
@@ -394,53 +362,52 @@ const s = StyleSheet.create({
     fontWeight: "600",
     color: Colors.light.info,
   },
-  statusBadge: {
+  divider: { height: 1, backgroundColor: Colors.light.border },
+  infoRow: { flexDirection: "row" },
+  infoCol: { flex: 1, gap: 2 },
+  infoLabel: { fontSize: 11, color: Colors.light.textSecondary },
+  infoValue: {
+    fontSize: 14,
+    fontWeight: "700",
+    color: Colors.light.textPrimary,
+  },
+  cardFooter: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 2,
+  },
+  footerStatus: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
+  },
+  footerStatusText: {
+    fontSize: 12,
+    fontWeight: "600",
+  },
+  actionRow: { flexDirection: "row", gap: 8 },
+  rejectBtn: {
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 20,
-  },
-  statusBadgeText: { fontSize: 10, fontWeight: "600" },
-  divider: { height: 1, backgroundColor: Colors.light.divider },
-  infoRow: { flexDirection: "row" },
-  infoBlock: { flex: 1, gap: 2 },
-  infoLabel: { fontSize: 10, color: Colors.light.textSecondary },
-  infoValue: { fontSize: 13, fontWeight: "600", color: Colors.light.textPrimary },
-  reasonBox: {
-    flexDirection: "row",
-    gap: 6,
-    alignItems: "flex-start",
-    backgroundColor: Colors.light.surfaceSecondary,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
     borderRadius: 8,
-    padding: 10,
-  },
-  reasonText: { flex: 1, fontSize: 12, color: Colors.light.textSecondary },
-  actionRow: { flexDirection: "row", gap: 8, marginTop: 2 },
-  rejectBtn: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 6,
-    paddingVertical: 10,
-    borderRadius: 10,
     borderWidth: 1,
     borderColor: Colors.light.error,
   },
-  rejectBtnText: { fontSize: 13, fontWeight: "600", color: Colors.light.error },
+  rejectBtnText: { fontSize: 12, fontWeight: "600", color: Colors.light.error },
   approveBtn: {
-    flex: 2,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    gap: 6,
-    paddingVertical: 10,
-    borderRadius: 10,
+    gap: 4,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 8,
     backgroundColor: Colors.light.success,
   },
-  approveBtnText: { fontSize: 13, fontWeight: "600", color: "#fff" },
+  approveBtnText: { fontSize: 12, fontWeight: "600", color: "#fff" },
 });
 
 const actionStyle = StyleSheet.create({
@@ -459,7 +426,11 @@ const actionStyle = StyleSheet.create({
     color: Colors.light.textSecondary,
   },
   inputWrap: { gap: 6 },
-  inputLabel: { fontSize: 12, fontWeight: "500", color: Colors.light.textSecondary },
+  inputLabel: {
+    fontSize: 12,
+    fontWeight: "500",
+    color: Colors.light.textSecondary,
+  },
   input: {
     borderWidth: 1,
     borderColor: Colors.light.border,
@@ -477,5 +448,9 @@ const actionStyle = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  confirmBtnText: { fontSize: 14, fontWeight: "700", color: "#fff" },
+  confirmBtnText: {
+    fontSize: 14,
+    fontWeight: "700",
+    color: "#fff",
+  },
 });

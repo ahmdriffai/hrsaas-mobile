@@ -43,7 +43,6 @@ const style = StyleSheet.create({
     borderBottomEndRadius: 20,
     borderBottomStartRadius: 20,
     paddingHorizontal: 20,
-    paddingTop: 40,
     position: "relative",
   },
   title: {
@@ -60,7 +59,7 @@ const style = StyleSheet.create({
   mainContainer: {
     paddingHorizontal: 20,
     position: "relative",
-    top: -100,
+    top: -130,
     flex: 1,
   },
 });

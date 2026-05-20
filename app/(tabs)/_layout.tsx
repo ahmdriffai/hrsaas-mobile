@@ -1,6 +1,6 @@
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { Tabs } from "expo-router";
-import { Image, View } from "react-native";
+import { View } from "react-native";
 
 export default function TabLayout() {
   return (
@@ -14,13 +14,13 @@ export default function TabLayout() {
           fontWeight: "600",
         },
         tabBarStyle: {
-          position: "absolute",
           left: 20,
           right: 20,
           elevation: 0,
           backgroundColor: "#FFFFFF",
-          borderRadius: 24,
-          height: 90,
+          borderTopLeftRadius: 0,
+          borderTopRightRadius: 0,
+          height: 70,
           paddingBottom: 0,
           paddingHorizontal: 8,
           shadowColor: "#006D77",
@@ -33,12 +33,12 @@ export default function TabLayout() {
         tabBarInactiveTintColor: "#9CA3AF",
         tabBarLabelStyle: {
           fontSize: 12,
-          fontWeight: "600",
+          fontWeight: "500",
           marginBottom: 10,
           letterSpacing: 0.2,
         },
         tabBarIconStyle: {
-          marginTop: 10,
+          marginTop: 0,
         },
         tabBarItemStyle: {
           borderRadius: 18,
@@ -51,12 +51,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Home",
-          headerTitle: () => (
-            <Image
-              source={require("../../assets/images/logo.png")}
-              style={{ width: 120, height: 40, resizeMode: "contain" }}
-            />
-          ),
+          headerShown: false,
           tabBarIcon: ({ color, focused }) => (
             <View
               style={{
@@ -64,8 +59,9 @@ export default function TabLayout() {
                 justifyContent: "center",
                 backgroundColor: focused ? "#E8F4F5" : "transparent",
                 borderRadius: 12,
-                width: 44,
-                height: 32,
+                width: 35,
+                height: 35,
+                marginBottom: 4,
               }}
             >
               <FontAwesome6
@@ -77,31 +73,6 @@ export default function TabLayout() {
           ),
         }}
       />
-
-      {/* <Tabs.Screen
-        name="activity"
-        options={{
-          title: "Aktivitas",
-          tabBarIcon: ({ color, focused }) => (
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: focused ? "#E8F4F5" : "transparent",
-                borderRadius: 12,
-                width: 44,
-                height: 32,
-              }}
-            >
-              <FontAwesome6
-                name="calendar"
-                size={focused ? 18 : 17}
-                color={color}
-              />
-            </View>
-          ),
-        }}
-      /> */}
 
       <Tabs.Screen
         name="profile"
@@ -115,8 +86,9 @@ export default function TabLayout() {
                 justifyContent: "center",
                 backgroundColor: focused ? "#E8F4F5" : "transparent",
                 borderRadius: 12,
-                width: 44,
-                height: 32,
+                width: 35,
+                height: 35,
+                marginBottom: 4,
               }}
             >
               <FontAwesome6

@@ -28,16 +28,13 @@ const style = StyleSheet.create({
   },
   bgHeader: {
     backgroundColor: Colors.light.primary,
-    minHeight: 160,
     borderBottomEndRadius: 20,
     borderBottomStartRadius: 20,
     paddingHorizontal: 20,
-    paddingTop: 40,
   },
   mainContainer: {
     paddingHorizontal: 20,
     position: "relative",
-    top: -40,
     flex: 1,
   },
 });

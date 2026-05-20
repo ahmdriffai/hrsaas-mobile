@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     justifyContent: "flex-end",
+    paddingBottom: 20,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
