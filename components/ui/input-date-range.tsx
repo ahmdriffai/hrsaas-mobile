@@ -34,6 +34,7 @@ interface Props {
   onChange?: (range: DateRange) => void;
   error?: string;
   minDate?: Date;
+  disableWeekends?: boolean;
 }
 
 function fmt(d: Date | null) {
@@ -72,6 +73,7 @@ export default function InputDateRange({
   onChange,
   error,
   minDate,
+  disableWeekends = false,
 }: Props) {
   const today = startOfDay(new Date());
   const minDay = minDate ? startOfDay(minDate) : null;
@@ -101,6 +103,14 @@ export default function InputDateRange({
 
   const isBeforeMin = (date: Date) =>
     minDay !== null && startOfDay(date) < minDay;
+
+  const isWeekend = (date: Date) => {
+    const day = startOfDay(date).getDay();
+    return day === 0 || day === 6;
+  };
+
+  const isDisabled = (date: Date) =>
+    isBeforeMin(date) || (disableWeekends && isWeekend(date));
 
   const handleDay = (date: Date) => {
     const d = startOfDay(date);
@@ -232,14 +242,14 @@ export default function InputDateRange({
                 key={di}
                 style={[styles.day, date ? getDayStyle(date) : null]}
                 onPress={() => date && handleDay(date)}
-                disabled={!date || isBeforeMin(date)}
+                disabled={!date || isDisabled(date)}
               >
                 {date && (
                   <Text
                     style={[
                       styles.dayText,
                       getDayTextStyle(date),
-                      isBeforeMin(date) && styles.dayTextDisabled,
+                      isDisabled(date) && styles.dayTextDisabled,
                     ]}
                   >
                     {date.getDate()}

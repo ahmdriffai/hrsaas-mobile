@@ -1,9 +1,6 @@
 import { api } from "@/lib/axios";
 import { PaginatedData } from "@/lib/types";
-import {
-  TimeOffRequestListSchema,
-  TimeOffRequestResponse,
-} from "../schemas/time-off-schema";
+import { TimeOffRequestResponse } from "../schemas/time-off-schema";
 
 export type GetCurrentTimeOffParams = {
   request_status?: string;
@@ -12,7 +9,7 @@ export type GetCurrentTimeOffParams = {
 };
 
 export const getCurrentTimeOffService = async (
-  params?: GetCurrentTimeOffParams
+  params?: GetCurrentTimeOffParams,
 ): Promise<PaginatedData<TimeOffRequestResponse>> => {
   const response = await api.get("/time-off-requests/_current", { params });
 
@@ -20,7 +17,7 @@ export const getCurrentTimeOffService = async (
     throw new Error(response.data.error || "Gagal memuat data cuti");
   }
 
-  const data = TimeOffRequestListSchema.parse(response.data.data);
+  const data = response.data.data;
 
   return { ...response.data, data };
 };

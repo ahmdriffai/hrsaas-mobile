@@ -1,28 +1,18 @@
 import { z } from "zod/v3";
 
+export const RoleSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+});
+
 export const UserSchema = z.object({
   id: z.string(),
   name: z.string(),
   email: z.string().email(),
-  employee: z
-    .object({
-      id: z.string(),
-      company_id: z.string(),
-      user_id: z.string(),
-      employee_number: z.string(),
-      fullname: z.string(),
-      birth_place: z.string(),
-      birth_date: z.number(),
-      blood_type: z.string(),
-      marital_status: z.string(),
-      religion: z.string(),
-      phone: z.string(),
-      timezone: z.string(),
-    })
-    .optional(),
+  email_verified: z.boolean().optional(),
+  roles: z.array(RoleSchema).optional(),
+  permissions: z.array(z.object({ name: z.string() })).optional(),
   company_id: z.string(),
-  created_at: z.number(),
-  updated_at: z.number(),
 });
 
 export const AuthSchema = z.object({

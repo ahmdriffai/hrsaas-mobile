@@ -1,6 +1,6 @@
 import { api } from "@/lib/axios";
 import { ResponseData } from "@/lib/types";
-import { Auth, AuthSchema } from "../schemas/auth-schema";
+import { Auth } from "../schemas/auth-schema";
 import { getCurrentUserService } from "./current-user-service";
 
 export const signInService = async (
@@ -13,7 +13,7 @@ export const signInService = async (
     throw new Error(response.data.error || "Login failed");
   }
 
-  const authData = AuthSchema.parse(response.data.data);
+  const authData = response.data.data;
 
   const userResponse = await getCurrentUserService();
 

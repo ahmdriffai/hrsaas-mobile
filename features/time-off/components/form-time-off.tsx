@@ -90,6 +90,7 @@ export default function FormTimeOff() {
           onChange={handleRangeChange}
           error={dateError}
           minDate={minDate}
+          disableWeekends
         />
 
         <Controller
