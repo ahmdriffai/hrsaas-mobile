@@ -44,7 +44,12 @@ export default function HeroCard() {
       <View className="flex flex-row justify-between items-center mt-3">
         <Text className="text-white font-semibold">{formattedTime} WIB</Text>
         <Text className="text-white font-light text-xs">
-          Kamis, 18 Januari 2026
+          {time.toLocaleDateString("id-ID", {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })}
         </Text>
       </View>
     </View>

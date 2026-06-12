@@ -1,6 +1,6 @@
 import { api } from "@/lib/axios";
 import { ResponseData } from "@/lib/types";
-import { User, UserSchema } from "../schemas/auth-schema";
+import { User } from "../schemas/auth-schema";
 
 export const getCurrentUserService = async (): Promise<ResponseData<User>> => {
   const response = await api.get("/users/_current");
@@ -9,7 +9,7 @@ export const getCurrentUserService = async (): Promise<ResponseData<User>> => {
     throw new Error(response.data.error || "Failed to fetch current user");
   }
 
-  const userData = UserSchema.parse(response.data.data);
+  const userData = response.data.data as User;
 
   return { ...response.data, data: userData };
 };
