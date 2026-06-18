@@ -3,7 +3,6 @@ import { Colors } from "@/constans/color";
 import { useAuth } from "@/features/auth/context/auth-context";
 import { useSignOut } from "@/features/auth/hooks/use-signout";
 import { Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React from "react";
@@ -63,11 +62,7 @@ export default function Profile() {
 
       {/* Avatar overlapping header */}
       <View style={styles.avatarWrapper}>
-        <Image
-          source={require("@/assets/images/profile.png")}
-          style={styles.avatar}
-          contentFit="cover"
-        />
+        <Ionicons name="person" size={52} color={PURPLE} />
       </View>
 
       {/* Name + Position */}
@@ -114,18 +109,32 @@ export default function Profile() {
           <MenuItem
             icon={<Ionicons name="person" size={18} color={PURPLE} />}
             label="Personal Data"
-            onPress={() => router.push("/employee/personal-data")}
-          />
-          {/* <View style={styles.divider} />
-          <MenuItem
-            icon={<Ionicons name="folder" size={18} color={PURPLE} />}
-            label="Office Assets"
+            onPress={() => router.push("/employee/general")}
           />
           <View style={styles.divider} />
           <MenuItem
-            icon={<MaterialIcons name="payment" size={18} color={PURPLE} />}
-            label="Payroll & Tax"
-          /> */}
+            icon={<Ionicons name="document-text" size={18} color={PURPLE} />}
+            label="Riwayat Kontrak"
+            onPress={() => router.push("/employee/contract")}
+          />
+          <View style={styles.divider} />
+          <MenuItem
+            icon={<Ionicons name="folder-open" size={18} color={PURPLE} />}
+            label="Dokumen Saya"
+            onPress={() => router.push("/employee/document")}
+          />
+          <View style={styles.divider} />
+          <MenuItem
+            icon={<Ionicons name="school" size={18} color={PURPLE} />}
+            label="Riwayat Pendidikan"
+            onPress={() => router.push("/employee/education")}
+          />
+          <View style={styles.divider} />
+          <MenuItem
+            icon={<Ionicons name="ribbon" size={18} color={PURPLE} />}
+            label="Riwayat Pelatihan"
+            onPress={() => router.push("/employee/training")}
+          />
         </View>
 
         {/* SETTINGS */}
@@ -162,7 +171,7 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: Colors.light.gray100,
-    marginBottom: 35,
+    // marginBottom: 5,
   },
   scrollContent: {
     paddingBottom: 40,
@@ -183,11 +192,13 @@ const styles = StyleSheet.create({
     marginTop: -(HEADER_HEIGHT / 2 - 10),
     width: 110,
     height: 110,
-    borderRadius: 20,
-    backgroundColor: "#FFCCE0",
+    borderRadius: 55,
+    backgroundColor: Colors.light.primaryLight,
+    alignItems: "center",
+    justifyContent: "center",
     overflow: "hidden",
-    borderWidth: 4,
-    borderColor: "#fff",
+    borderWidth: 3,
+    borderColor: Colors.light.white,
   },
   avatar: {
     width: "100%",

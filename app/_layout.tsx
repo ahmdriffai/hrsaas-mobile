@@ -58,11 +58,28 @@ function RootNavigator() {
             options={{ title: "Persetujuan Cuti", headerShown: false }}
           />
           <Stack.Screen
-            name="employee/personal-data"
+            name="employee/general"
             options={{ title: "Personal Data" }}
+          />
+          <Stack.Screen
+            name="employee/contract"
+            options={{ title: "Riwayat Kontrak" }}
+          />
+          <Stack.Screen
+            name="employee/document"
+            options={{ title: "Dokumen Saya" }}
+          />
+          <Stack.Screen
+            name="employee/education"
+            options={{ title: "Riwayat Pendidikan" }}
+          />
+          <Stack.Screen
+            name="employee/training"
+            options={{ title: "Riwayat Pelatihan" }}
           />
           <Stack.Screen name="visit/index" options={{ headerShown: false }} />
           <Stack.Screen name="visit/create" options={{ title: "Kunjungan" }} />
+          <Stack.Screen name="sanction/index" options={{ title: "Sanksi" }} />
         </Stack.Protected>
         <Stack.Protected guard={!token}>
           <Stack.Screen name="on-board" options={{ headerShown: false }} />

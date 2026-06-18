@@ -1,12 +1,12 @@
 export const Colors = {
   light: {
     // Brand
-    primary: "#3F9AAE",
+    primary: "#032b43",
     primaryLight: "#6BBDCE",
     primaryDark: "#2A7A8E",
 
     // Accent
-    secondary: "#F59E0B",
+    secondary: "#d00000",
     secondaryLight: "#FCD34D",
     secondaryDark: "#D97706",
 
@@ -46,12 +46,12 @@ export const Colors = {
     textSecondary: "#6B7280",
     textDisabled: "#D1D5DB",
     textInverse: "#FFFFFF",
-    textLink: "#3F9AAE",
+    textLink: "#032b43",
   },
 
   dark: {
     // Brand
-    primary: "#3F9AAE",
+    primary: "#032b43",
     primaryLight: "#6BBDCE",
     primaryDark: "#2A7A8E",
 

@@ -6,6 +6,7 @@ import { useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
+  RefreshControl,
   StyleSheet,
   TextInput,
   TouchableOpacity,
@@ -252,7 +253,14 @@ function ApprovalCard({
 export default function ListTimeOffApproval() {
   const [activeTab, setActiveTab] = useState<TabStatus>("PENDING");
 
-  const { data, isLoading } = useGetTimeOffApprovals({ status: activeTab });
+  const { data, isLoading, refetch } = useGetTimeOffApprovals({ status: activeTab });
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  };
+
   const items = data?.data ?? [];
 
   return (
@@ -285,6 +293,14 @@ export default function ListTimeOffApproval() {
           renderItem={({ item }) => (
             <ApprovalCard item={item} activeTab={activeTab} />
           )}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={[Colors.light.primary]}
+              tintColor={Colors.light.primary}
+            />
+          }
           contentContainerStyle={
             items.length === 0 ? s.emptyContainer : s.listContent
           }

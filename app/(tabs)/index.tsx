@@ -108,14 +108,14 @@ const menus: Menu[] = [
   //   iconColor: "orange",
   //   route: "/presence",
   // },
-  // {
-  //   title: "Sanksi",
-  //   desc: "Peringatan dan Sanksi",
-  //   icon: "info",
-  //   bgColor: "bg-amber-100",
-  //   iconColor: "orange",
-  //   route: "/sanction",
-  // },
+  {
+    title: "Sanksi",
+    desc: "Peringatan dan Sanksi",
+    icon: "info",
+    bgColor: "bg-amber-100",
+    iconColor: "orange",
+    route: "/sanction",
+  },
 ];
 
 export default function Beranda() {

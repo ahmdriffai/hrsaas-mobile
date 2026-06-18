@@ -1,26 +1,14 @@
+import { Colors } from "@/constans/color";
 import Feather from "@expo/vector-icons/Feather";
 import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import BottomSheet from "./bottom-sheet";
 import Text from "./text";
 
-const PRIMARY = "#3F9AAE";
-const RANGE_BG = "#EBF6F9";
-
 const DAYS = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
 const MONTHS = [
-  "Januari",
-  "Februari",
-  "Maret",
-  "April",
-  "Mei",
-  "Juni",
-  "Juli",
-  "Agustus",
-  "September",
-  "Oktober",
-  "November",
-  "Desember",
+  "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+  "Juli", "Agustus", "September", "Oktober", "November", "Desember",
 ];
 
 export interface DateRange {
@@ -186,7 +174,7 @@ export default function InputDateRange({
         <Feather
           name="calendar"
           size={16}
-          color={error ? "#FF4D4F" : "#999"}
+          color={error ? Colors.light.error : Colors.light.gray400}
           style={styles.calIcon}
         />
         <Text style={[styles.triggerText, !displayText && styles.placeholder]}>
@@ -200,7 +188,7 @@ export default function InputDateRange({
               onChange?.({ from: null, to: null });
             }}
           >
-            <Feather name="x" size={16} color="#999" />
+            <Feather name="x" size={16} color={Colors.light.gray400} />
           </Pressable>
         )}
       </Pressable>
@@ -215,13 +203,13 @@ export default function InputDateRange({
         {/* Month navigation */}
         <View style={styles.nav}>
           <Pressable onPress={prevMonth} hitSlop={10}>
-            <Feather name="chevron-left" size={22} color="#333" />
+            <Feather name="chevron-left" size={22} color={Colors.light.textPrimary} />
           </Pressable>
           <Text style={styles.navTitle}>
             {MONTHS[viewMonth]} {viewYear}
           </Text>
           <Pressable onPress={nextMonth} hitSlop={10}>
-            <Feather name="chevron-right" size={22} color="#333" />
+            <Feather name="chevron-right" size={22} color={Colors.light.textPrimary} />
           </Pressable>
         </View>
 
@@ -298,12 +286,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "400",
     marginBottom: 5,
-    color: "#999",
+    color: Colors.light.gray400,
     width: "100%",
   },
   trigger: {
     width: "100%",
-    backgroundColor: "#F3F3F3",
+    backgroundColor: Colors.light.surfaceSecondary,
     height: 45,
     borderRadius: 10,
     flexDirection: "row",
@@ -312,23 +300,23 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   triggerError: {
-    backgroundColor: "#FFF1F0",
+    backgroundColor: Colors.light.errorLight,
     borderWidth: 1,
-    borderColor: "#FF4D4F",
+    borderColor: Colors.light.error,
   },
   calIcon: { marginRight: 2 },
   triggerText: {
     fontSize: 13,
-    color: "#090909",
+    color: Colors.light.textPrimary,
     flex: 1,
   },
   placeholder: {
-    color: "#ABABAB",
+    color: Colors.light.textDisabled,
   },
   errorText: {
     width: "100%",
     fontSize: 11,
-    color: "#FF4D4F",
+    color: Colors.light.error,
     marginTop: 4,
   },
   // Calendar
@@ -341,7 +329,7 @@ const styles = StyleSheet.create({
   navTitle: {
     fontSize: 15,
     fontWeight: "700",
-    color: "#111827",
+    color: Colors.light.textPrimary,
   },
   weekRow: {
     flexDirection: "row",
@@ -353,7 +341,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 11,
     fontWeight: "600",
-    color: "#9CA3AF",
+    color: Colors.light.gray400,
   },
   day: {
     width: 36,
@@ -363,35 +351,35 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   daySelected: {
-    backgroundColor: PRIMARY,
+    backgroundColor: Colors.light.primary,
   },
   dayInRange: {
-    backgroundColor: RANGE_BG,
+    backgroundColor: Colors.light.primaryLight + "25",
     borderRadius: 0,
   },
   dayToday: {
     borderWidth: 1.5,
-    borderColor: PRIMARY,
+    borderColor: Colors.light.primary,
   },
   dayText: {
     fontSize: 13,
-    color: "#374151",
+    color: Colors.light.gray700,
   },
   dayTextSelected: {
-    color: "#fff",
+    color: Colors.light.white,
     fontWeight: "700",
   },
   dayTextInRange: {
-    color: PRIMARY,
+    color: Colors.light.primary,
     fontWeight: "500",
   },
   dayTextDisabled: {
-    color: "#D1D5DB",
+    color: Colors.light.textDisabled,
   },
   hint: {
     textAlign: "center",
     fontSize: 12,
-    color: "#9CA3AF",
+    color: Colors.light.gray400,
     marginTop: 8,
     marginBottom: 12,
   },
@@ -399,7 +387,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
-    backgroundColor: "#F9FAFB",
+    backgroundColor: Colors.light.background,
     borderRadius: 12,
     padding: 12,
   },
@@ -409,30 +397,30 @@ const styles = StyleSheet.create({
   },
   footerLabel: {
     fontSize: 10,
-    color: "#9CA3AF",
+    color: Colors.light.gray400,
     marginBottom: 2,
   },
   footerDate: {
     fontSize: 13,
     fontWeight: "600",
-    color: "#111827",
+    color: Colors.light.textPrimary,
   },
   footerDivider: {
     width: 1,
     height: 28,
-    backgroundColor: "#E5E7EB",
+    backgroundColor: Colors.light.border,
   },
   applyBtn: {
-    backgroundColor: PRIMARY,
+    backgroundColor: Colors.light.primary,
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 8,
   },
   applyBtnDisabled: {
-    backgroundColor: "#B0D8E3",
+    backgroundColor: Colors.light.primaryLight,
   },
   applyText: {
-    color: "#fff",
+    color: Colors.light.white,
     fontWeight: "600",
     fontSize: 13,
   },

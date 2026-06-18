@@ -1,3 +1,4 @@
+import { Colors } from "@/constans/color";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { Tabs } from "expo-router";
 import { View } from "react-native";
@@ -29,8 +30,8 @@ export default function TabLayout() {
           shadowRadius: 24,
           borderTopWidth: 0,
         },
-        tabBarActiveTintColor: "#006D77",
-        tabBarInactiveTintColor: "#9CA3AF",
+        tabBarActiveTintColor: Colors.light.primary,
+        tabBarInactiveTintColor: Colors.light.textSecondary,
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: "500",

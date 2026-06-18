@@ -1,57 +1,124 @@
+import { Colors } from "@/constans/color";
 import Feather from "@expo/vector-icons/Feather";
+import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Text from "./text";
 
 export default function HeroCard() {
   const [time, setTime] = useState<Date>(new Date());
 
   useEffect(() => {
-    // Function to update the time
-    const updateClock = () => {
-      setTime(new Date());
-    };
+    const timerId = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timerId);
+  }, []);
 
-    // Set up an interval to call updateClock every 1000 milliseconds (1 second)
-    const timerId = setInterval(updateClock, 1000);
+  const formattedTime = time.toLocaleTimeString("id-ID", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
 
-    // Clean up the interval when the component unmounts
-    return () => {
-      clearInterval(timerId);
-    };
-  }, []); // The empty dependency array ensures the effect runs only once on mount
+  const formattedDate = time.toLocaleDateString("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 
-  // Format the time as a readable string
-  const formattedTime = time.toLocaleTimeString();
   return (
-    <View className="bg-linear-to-bl to-[#3F9AAE] from-[#79C9C5] p-5 rounded-2xl">
-      <View className="flex flex-row gap-x-3 border-b pb-4 border-white/10">
-        <View className="bg-white/30 p-2 px-3 rounded-xl items-center justify-center">
-          <Feather size={22} name="clock" color="white" />
+    <LinearGradient
+      colors={[Colors.light.primaryLight, Colors.light.primary]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={styles.card}
+    >
+      {/* Check-in / Check-out row */}
+      <View style={styles.topRow}>
+        <View style={styles.iconBox}>
+          <Feather size={22} name="clock" color={Colors.light.white} />
         </View>
-        <View className="flex gap-2 items-center">
-          <Text className="text-[10px] text-white font-light">Check-in</Text>
-          <Text className="text-lg text-white font-semibold">-</Text>
+
+        <View style={styles.checkItem}>
+          <Text style={styles.checkLabel}>Check-in</Text>
+          <Text style={styles.checkValue}>-</Text>
         </View>
-        <View className="px-5">
-          <Text className="text-white text-2xl">...</Text>
+
+        <View style={styles.separator}>
+          <Text style={styles.separatorDots}>·  ·  ·</Text>
         </View>
-        <View className="flex gap-2 items-center">
-          <Text className="text-[10px] text-white font-light">Check-out</Text>
-          <Text className="text-lg text-white font-semibold">-</Text>
+
+        <View style={styles.checkItem}>
+          <Text style={styles.checkLabel}>Check-out</Text>
+          <Text style={styles.checkValue}>-</Text>
         </View>
       </View>
-      <View className="flex flex-row justify-between items-center mt-3">
-        <Text className="text-white font-semibold">{formattedTime} WIB</Text>
-        <Text className="text-white font-light text-xs">
-          {time.toLocaleDateString("id-ID", {
-            weekday: "long",
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-          })}
-        </Text>
+
+      {/* Time & date row */}
+      <View style={styles.bottomRow}>
+        <Text style={styles.timeText}>{formattedTime} WIB</Text>
+        <Text style={styles.dateText}>{formattedDate}</Text>
       </View>
-    </View>
+    </LinearGradient>
   );
 }
+
+const styles = StyleSheet.create({
+  card: {
+    borderRadius: 16,
+    padding: 20,
+  },
+  topRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(255,255,255,0.15)",
+    paddingBottom: 16,
+  },
+  iconBox: {
+    backgroundColor: "rgba(255,255,255,0.2)",
+    padding: 10,
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  checkItem: {
+    alignItems: "center",
+    gap: 4,
+  },
+  checkLabel: {
+    fontSize: 10,
+    color: "rgba(255,255,255,0.7)",
+    fontWeight: "300",
+  },
+  checkValue: {
+    fontSize: 16,
+    color: Colors.light.white,
+    fontWeight: "600",
+  },
+  separator: {
+    flex: 1,
+    alignItems: "center",
+  },
+  separatorDots: {
+    fontSize: 18,
+    color: "rgba(255,255,255,0.4)",
+  },
+  bottomRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 12,
+  },
+  timeText: {
+    fontSize: 14,
+    color: Colors.light.white,
+    fontWeight: "600",
+  },
+  dateText: {
+    fontSize: 12,
+    color: "rgba(255,255,255,0.7)",
+    fontWeight: "300",
+  },
+});

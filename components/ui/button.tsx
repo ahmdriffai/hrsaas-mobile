@@ -1,3 +1,4 @@
+import { Colors } from "@/constans/color";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useRef } from "react";
 import {
@@ -8,8 +9,6 @@ import {
   ViewStyle,
 } from "react-native";
 import Text from "./text";
-
-const PRIMARY = "#3F9AAE";
 
 type Variant =
   | "primary"
@@ -34,40 +33,40 @@ const variantStyles: Record<
   { bg: string; border: string; text: string; iconColor: string }
 > = {
   primary: {
-    bg: PRIMARY,
-    border: PRIMARY,
-    text: "#fff",
-    iconColor: "#fff",
+    bg: Colors.light.primary,
+    border: Colors.light.primary,
+    text: Colors.light.white,
+    iconColor: Colors.light.white,
   },
   outline: {
     bg: "transparent",
-    border: PRIMARY,
-    text: PRIMARY,
-    iconColor: PRIMARY,
+    border: Colors.light.primary,
+    text: Colors.light.primary,
+    iconColor: Colors.light.primary,
   },
   ghost: {
     bg: "transparent",
     border: "transparent",
-    text: PRIMARY,
-    iconColor: PRIMARY,
+    text: Colors.light.primary,
+    iconColor: Colors.light.primary,
   },
   secondary: {
-    bg: "#E8F4F7",
-    border: "#E8F4F7",
-    text: PRIMARY,
-    iconColor: PRIMARY,
+    bg: Colors.light.primaryLight + "30",
+    border: Colors.light.primaryLight + "30",
+    text: Colors.light.primary,
+    iconColor: Colors.light.primary,
   },
   danger: {
-    bg: "#DC2626",
-    border: "#DC2626",
-    text: "#fff",
-    iconColor: "#fff",
+    bg: Colors.light.error,
+    border: Colors.light.error,
+    text: Colors.light.white,
+    iconColor: Colors.light.white,
   },
   success: {
-    bg: "#16A34A",
-    border: "#16A34A",
-    text: "#fff",
-    iconColor: "#fff",
+    bg: Colors.light.success,
+    border: Colors.light.success,
+    text: Colors.light.white,
+    iconColor: Colors.light.white,
   },
 };
 

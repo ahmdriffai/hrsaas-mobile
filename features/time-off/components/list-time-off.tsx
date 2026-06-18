@@ -6,6 +6,7 @@ import { useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
+  RefreshControl,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -272,9 +273,16 @@ function TimeOffItem({
 export default function ListTimeOff() {
   const [activeTab, setActiveTab] = useState<TabStatus>("review");
 
-  const { data, isLoading } = useGetCurrentTimeOff({
+  const { data, isLoading, refetch } = useGetCurrentTimeOff({
     request_status: TAB_TO_API_STATUS[activeTab],
   });
+
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  };
 
   const items = data?.data ?? [];
 
@@ -307,6 +315,14 @@ export default function ListTimeOff() {
           renderItem={({ item }) => <TimeOffItem item={item} tab={activeTab} />}
           contentContainerStyle={
             items.length === 0 ? style.emptyContainer : style.listContent
+          }
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={[Colors.light.primary]}
+              tintColor={Colors.light.primary}
+            />
           }
           ListEmptyComponent={
             <View style={style.emptyWrapper}>

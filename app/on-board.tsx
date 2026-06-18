@@ -1,4 +1,5 @@
 import Button from "@/components/ui/button";
+import { Colors } from "@/constans/color";
 import SignInAuth from "@/features/auth/components/sign-in";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
@@ -14,7 +15,7 @@ export default function OnBoardPage() {
     <View style={style.container}>
       <LinearGradient
         style={style.onBoardImageContainer}
-        colors={["#3F9AAE", "#fff"]}
+        colors={[Colors.light.primary, "#fff"]}
         start={{ x: 1, y: 0 }}
         end={{ x: 1, y: 1 }}
       >
