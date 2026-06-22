@@ -2,6 +2,7 @@ import { Colors } from "@/constans/color";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { Tabs } from "expo-router";
 import { View } from "react-native";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 export default function TabLayout() {
   return (
@@ -68,6 +69,33 @@ export default function TabLayout() {
               <FontAwesome6
                 name="house-chimney"
                 size={focused ? 18 : 17}
+                color={color}
+              />
+            </View>
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="attendance"
+        options={{
+          title: "Kehadiran",
+          headerShown: false,
+          tabBarIcon: ({ color, focused }) => (
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: focused ? "#E8F4F5" : "transparent",
+                borderRadius: 12,
+                width: 35,
+                height: 35,
+                marginBottom: 4,
+              }}
+            >
+              <MaterialCommunityIcons
+                name="calendar-clock"
+                size={focused ? 20 : 19}
                 color={color}
               />
             </View>

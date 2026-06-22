@@ -80,6 +80,10 @@ function RootNavigator() {
           <Stack.Screen name="visit/index" options={{ headerShown: false }} />
           <Stack.Screen name="visit/create" options={{ title: "Kunjungan" }} />
           <Stack.Screen name="sanction/index" options={{ title: "Sanksi" }} />
+          <Stack.Screen
+            name="attendance/page"
+            options={{ title: "Absensi" }}
+          />
         </Stack.Protected>
         <Stack.Protected guard={!token}>
           <Stack.Screen name="on-board" options={{ headerShown: false }} />

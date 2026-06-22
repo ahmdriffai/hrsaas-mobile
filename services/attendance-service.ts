@@ -9,3 +9,6 @@ export type CheckInRequest = {
 
 export const checkin = (data: CheckInRequest) =>
   api.post("/attendances/check-in", data);
+
+export const checkout = (data: CheckInRequest) =>
+  api.post("/attendances/check-out", data);

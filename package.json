@@ -20,9 +20,14 @@
     "build:prod": "eas build --profile production",
     "build:prod:android": "eas build --profile production --platform android",
     "build:prod:ios": "eas build --profile production --platform ios",
+    "build:prod:android:submit": "eas build --profile production --platform android --auto-submit",
+    "build:prod:ios:submit": "eas build --profile production --platform ios --auto-submit",
+    "build:prod:submit": "eas build --profile production --auto-submit",
+    "build:staging:android:submit": "eas build --profile staging --platform android --auto-submit",
     "update:staging": "APP_ENV=staging eas update --channel staging",
     "update:prod": "APP_ENV=production eas update --channel production",
-    "submit:prod": "eas submit --profile production"
+    "submit:prod": "eas submit --profile production",
+    "submit:internal": "eas submit --profile internal"
   },
   "dependencies": {
     "@expo-google-fonts/inter": "^0.4.2",

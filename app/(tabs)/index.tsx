@@ -18,22 +18,14 @@ type Menu = {
 };
 
 const menus: Menu[] = [
-  // {
-  //   title: "Absensi",
-  //   desc: "Kehadiran Harian",
-  //   icon: "clock",
-  //   bgColor: "bg-green-100",
-  //   iconColor: "green",
-  //   route: "/presence",
-  // },
-  // {
-  //   title: "Istirahat",
-  //   desc: "Mulai dan akhir istirahat",
-  //   icon: "coffee",
-  //   bgColor: "bg-yellow-100",
-  //   iconColor: "orange",
-  //   route: "/presence",
-  // },
+  {
+    title: "Absensi",
+    desc: "Check-in & Check-out",
+    icon: "clock",
+    bgColor: "bg-green-100",
+    iconColor: "green",
+    route: "/attendance/page",
+  },
   {
     title: "Cuti & Izin",
     desc: "Pengajuan izin dan cuti",

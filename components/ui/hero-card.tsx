@@ -1,9 +1,18 @@
 import { Colors } from "@/constans/color";
+import { useGetCurrentAttendance } from "@/features/attendance/hooks/use-get-current-attendance";
 import Feather from "@expo/vector-icons/Feather";
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import Text from "./text";
+
+function formatTime(ms: number): string {
+  if (!ms) return "-";
+  return new Date(ms).toLocaleTimeString("id-ID", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
 
 export default function HeroCard() {
   const [time, setTime] = useState<Date>(new Date());
@@ -12,6 +21,16 @@ export default function HeroCard() {
     const timerId = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timerId);
   }, []);
+
+  const now = new Date();
+  const startOfDay = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+  ).getTime();
+
+  const { data } = useGetCurrentAttendance({ date: startOfDay, size: 1 });
+  const todayRecord = data?.data?.[0];
 
   const formattedTime = time.toLocaleTimeString("id-ID", {
     hour: "2-digit",
@@ -41,7 +60,9 @@ export default function HeroCard() {
 
         <View style={styles.checkItem}>
           <Text style={styles.checkLabel}>Check-in</Text>
-          <Text style={styles.checkValue}>-</Text>
+          <Text style={styles.checkValue}>
+            {todayRecord ? formatTime(todayRecord.check_in_time) : "-"}
+          </Text>
         </View>
 
         <View style={styles.separator}>
@@ -50,7 +71,11 @@ export default function HeroCard() {
 
         <View style={styles.checkItem}>
           <Text style={styles.checkLabel}>Check-out</Text>
-          <Text style={styles.checkValue}>-</Text>
+          <Text style={styles.checkValue}>
+            {todayRecord?.check_out_time
+              ? formatTime(todayRecord.check_out_time)
+              : "-"}
+          </Text>
         </View>
       </View>
 
