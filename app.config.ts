@@ -5,7 +5,7 @@ type AppEnv = "development" | "staging" | "production";
 const APP_ENV = (process.env.APP_ENV ?? "development") as AppEnv;
 
 // Single source of truth for version
-const APP_VERSION = "1.4.0";
+const APP_VERSION = "1.4.1";
 
 const envConfig: Record<
   AppEnv,
@@ -35,7 +35,7 @@ export default (_ctx: ConfigContext): ExpoConfig => ({
   slug: "bw-akses-plus",
   version: APP_VERSION,
   orientation: "portrait",
-  icon: "./assets/images/icon.png",
+  icon: "./assets/icons/adaptive-icon.png",
   scheme: "platform",
   userInterfaceStyle: "automatic",
   newArchEnabled: true,

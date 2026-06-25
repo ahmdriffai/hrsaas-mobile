@@ -3,6 +3,7 @@ import { Colors } from "@/constans/color";
 import SignInAuth from "@/features/auth/components/sign-in";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
+import Constants from "expo-constants";
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -31,6 +32,10 @@ export default function OnBoardPage() {
         <Button title="Login" fullWidth onPress={() => setShowLogin(true)} />
 
         <SignInAuth show={showLogin} setShow={setShowLogin} />
+
+        <Text style={style.version}>
+          v{Constants.expoConfig?.version ?? "-"}
+        </Text>
       </View>
     </View>
   );
@@ -67,5 +72,10 @@ const style = StyleSheet.create({
     fontSize: 14,
     textAlign: "center",
     fontWeight: "400",
+  },
+  version: {
+    fontSize: 11,
+    color: Colors.light.textSecondary,
+    marginTop: 4,
   },
 });

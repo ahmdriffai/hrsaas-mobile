@@ -4,8 +4,9 @@ import { Colors } from "@/constans/color";
 import { useLocation } from "@/hooks/use-location";
 import Feather from "@expo/vector-icons/Feather";
 import { CameraView, useCameraPermissions } from "expo-camera";
+import { useFocusEffect } from "expo-router";
 import LottieView from "lottie-react-native";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
   Alert,
   Animated,
@@ -24,6 +25,18 @@ export default function AttendanceForm() {
   const cameraRef = useRef<CameraView>(null);
   const [photo, setPhoto] = useState<PhotoResult | null>(null);
   const [isScanning, setIsScanning] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      setIsFocused(true);
+      return () => {
+        setIsFocused(false);
+        setPhoto(null);
+        setIsScanning(false);
+      };
+    }, []),
+  );
 
   const {
     coor,
@@ -122,8 +135,10 @@ export default function AttendanceForm() {
                   />
                 </Animated.View>
               </>
-            ) : (
+            ) : isFocused ? (
               <CameraView ref={cameraRef} facing="front" style={styles.fill} />
+            ) : (
+              <View style={styles.fill} />
             )}
           </View>
         </View>

@@ -3,6 +3,7 @@ import { Colors } from "@/constans/color";
 import { useAuth } from "@/features/auth/context/auth-context";
 import { useSignOut } from "@/features/auth/hooks/use-signout";
 import { Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import Constants from "expo-constants";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React from "react";
@@ -163,6 +164,10 @@ export default function Profile() {
           />
         </View>
       </View>
+
+      <Text style={styles.version}>
+        v{Constants.expoConfig?.version ?? "-"}
+      </Text>
     </ScrollView>
   );
 }
@@ -285,5 +290,12 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 14,
     fontWeight: "500",
+  },
+  version: {
+    textAlign: "center",
+    fontSize: 11,
+    color: Colors.light.textSecondary,
+    marginTop: 4,
+    marginBottom: 20,
   },
 });
